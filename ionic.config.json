@@ -1,0 +1,7 @@
+{
+  "name": "Nova",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
