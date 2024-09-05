@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    
   ],
   declarations: [LoginPage]
 })
