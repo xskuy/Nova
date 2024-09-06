@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
 		this.formularioLogin = this.fb.group({
 			email: new FormControl("", [Validators.required, Validators.email]),
 			password: new FormControl("", Validators.required),
-		}); I 
+		})
 	}
 
 	ngOnInit() {

@@ -1,29 +1,51 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+  <div class="login-container">
+    <ion-header class="login-header">
+      <ion-toolbar>
+        <ion-title class="signup-link">Sign up</ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <div class="login-box">
+      <h2>Log in</h2>
 
-  <ion-card>
-    <ion-card-content>
-      <form [formGroup]="formularioLogin">
+      <ion-item class="input-item">
+        <ion-input
+          type="email"
+          fill="solid"
+          label="Email"
+          labelPlacement="floating"
+          errorText="Invalid email"
+          ngModel
+          email
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
         <ion-item>
-          <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Invalid email" ngModel
-            email></ion-input>
+          <ion-input
+            label="Password"
+            type="password"
+            labelPlacement="floating"
+          ></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-input label="Password input" labelPlacement="floating" type="password"></ion-input>
-        </ion-item>
-        <ion-button class="button-login" expand="block" type="submit"> Ingresar </ion-button>
-      </form>
-      <ion-button class="button-login" expand="block" type="submit" routerLink="/registro"> Registrarse </ion-button>
-    </ion-card-content>
-  </ion-card>
+      </ion-item>
+
+      <ion-button expand="block" class="login-button">Log in</ion-button>
+
+      <div class="social-text">Or sign up with social account</div>
+
+      <div class="social-buttons">
+        <ion-button fill="outline" class="social-button">
+          <ion-icon name="logo-facebook"></ion-icon>
+          Facebook
+        </ion-button>
+
+        <ion-button fill="outline" class="social-button">
+          <ion-icon name="logo-twitter"></ion-icon>
+          Twitter
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
