@@ -1,5 +1,6 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
+// biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
 	FormGroup,
@@ -26,7 +27,12 @@ import {
 } from "@ionic/angular/standalone";
 import { RouterModule } from "@angular/router";
 // biome-ignore lint/style/useImportType: <explanation>
-import  { Router } from "@angular/router";
+import { Router } from "@angular/router";
+// biome-ignore lint/style/useImportType: <explanation>
+import { LoginService } from "../services/login.service";
+import { User } from "../models/user";
+// biome-ignore lint/style/useImportType: <explanation>
+import { AlertController } from "@ionic/angular";
 
 @Component({
 	selector: "app-tab3",
@@ -54,23 +60,50 @@ import  { Router } from "@angular/router";
 	],
 })
 export class Tab3Page implements OnInit {
+		loginForm!: FormGroup;
 
-	formularioLogin!: FormGroup;
+		constructor(
+			private router: Router,
+			private loginService: LoginService,
+			private formBuilder: FormBuilder,
+			private alertController: AlertController,
+		) {}
 
-	constructor(private router: Router) {}
+		ngOnInit() {
+			this.loginForm = this.formBuilder.group({
+				username: ["", Validators.required],
+				password: ["", Validators.required],
+			});
+		}
 
-	ngOnInit() {
-		this.formularioLogin = new FormGroup({
-			email: new FormControl("", [Validators.required, Validators.email]),
-			password: new FormControl("", Validators.required),
-		});
-	}
-
-	onSubmit() {
-		if (this.formularioLogin.valid) {
-			console.log(this.formularioLogin.value);
-		} else {
-			console.log("Formulario no válido");
+		async login() {
+			if (this.loginForm.valid) {
+				const { username, password } = this.loginForm.value;
+				try {
+					const result = await this.loginService.login(new User(username, password));
+					console.log("Login successful", result);
+					// Redirigir al usuario a la página principal o dashboard
+					this.router.navigate(["/tabs/tab1"]);
+				} catch (error) {
+					console.error("Login failed", error);
+					this.presentAlert(
+						"Error de login",
+						"Credenciales inválidas. Por favor, intente de nuevo.",
+					);
+				}
+			} else {
+				this.presentAlert(
+					"Formulario inválido",
+					"Por favor, complete todos los campos correctamente.",
+				);
+			}
+		}
+		async presentAlert(header: string, message: string) {
+			const alert = await this.alertController.create({
+				header,
+				message,
+				buttons: ["OK"],
+			});
+			await alert.present();
 		}
 	}
-}

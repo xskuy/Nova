@@ -9,29 +9,30 @@
     <div class="login-box">
       <h2>Log in</h2>
 
-      <ion-item class="input-item">
-        <ion-input
-          type="email"
-          fill="solid"
-          label="Email"
-          labelPlacement="floating"
-          errorText="Invalid email"
-          ngModel
-          email
-        ></ion-input>
-      </ion-item>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-item class="input-item">
+          <ion-input
+            type="text"
+            fill="solid"
+            label="Username"
+            labelPlacement="floating"
+            formControlName="username"
+          ></ion-input>
+        </ion-item>
 
-      <ion-item class="input-item">
-        <ion-item>
+        <ion-item class="input-item">
           <ion-input
             label="Password"
             type="password"
             labelPlacement="floating"
+            formControlName="password"
           ></ion-input>
         </ion-item>
-      </ion-item>
 
-      <ion-button expand="block" class="login-button">Log in</ion-button>
+        <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">
+          Iniciar sesión
+        </ion-button>
+      </form>
 
       <div class="social-text">Or sign up with social account</div>
 
