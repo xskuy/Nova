@@ -1,6 +1,5 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
-// biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
 	FormGroup,
