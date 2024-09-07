@@ -1,11 +1,10 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Tab 2 </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
   <div class="login-container">
-    <ion-header class="login-header">
-      <ion-toolbar>
-        <ion-title class="signup-link">Sign up</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
     <div class="login-box">
       <h2>Log in</h2>
 
@@ -29,8 +28,14 @@
           ></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">
-          Iniciar sesión
+        <ion-button expand="block" type="submit"> Iniciar sesión </ion-button>
+        <ion-button
+          class="button-login"
+          expand="block"
+          type="submit"
+          routerLink="/registro"
+        >
+          Registrarse
         </ion-button>
       </form>
 
