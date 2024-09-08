@@ -1,0 +1,31 @@
+
+
+#coolAvatar {
+  border: 2px solid black;
+  display: flex;
+  justify-content: center; 
+  margin: 20px auto; 
+}
+
+#coolWelcome {
+    
+    text-align: center;
+    font-family: "Segoe IU", sans-serif;
+}
+
+#coolContainer {
+  display: flex;
+  align-items:center;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye los elementos, con botones abajo */ /* Ocupa toda la altura de la ventana */
+  margin-top: 60%; 
+  
+}
+
+#coolButtoms {
+  margin-top: auto; /* Se asegura de que los botones estén al final */
+  text-align: center;
+  font-family: "Segoe IU", sans-serif;
+  width: 75%;
+  background-color: black;
+}

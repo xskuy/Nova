@@ -1,9 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Tab 1</ion-title>
-  </ion-toolbar>
+  <ion-avatar id="coolAvatar">
+    <img
+      alt="Silhouette of a person's head"
+      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+    />
+  </ion-avatar>
 </ion-header>
 
+<ion-toolbar>
+  <ion-title id="coolWelcome">Welcome User: </ion-title>
+</ion-toolbar>
+
 <ion-content [fullscreen]="true">
-  <ion-button expand="block" routerLink="/login"> Ir a Login </ion-button>
+  <div id="coolContainer">
+    <ion-button id="coolButtoms" expand="block" routerLink="/login">
+      Sign up
+    </ion-button>
+    <br />
+    <br />
+    <ion-button id="coolButtoms" expand="block" routerLink="/login">
+      Login
+    </ion-button>
+  </div>
 </ion-content>
