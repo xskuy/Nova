@@ -1,0 +1,91 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #000; /* Fondo negro */
+}
+
+.login-header {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.signup-link {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 16px;
+  color: #fff; /* Cambiado a blanco */
+}
+
+.login-box {
+  width: 90%;
+  max-width: 400px;
+  background-color: #fff; /* Fondo gris oscuro para contraste */
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: #000;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.input-item {
+  margin-bottom: 20px;
+}
+
+ion-label {
+  color: #ccc; /* Color claro para el texto de los labels */
+}
+
+ion-input {
+  color: #fff; /* Texto de los inputs en blanco */
+}
+
+.forgot-button {
+  position: absolute;
+  right: 0;
+  font-size: 14px;
+  color: #fff; /* Cambiado a blanco */
+}
+
+.login-button {
+  margin-top: 20px;
+  --background: #000; /* Botón blanco */
+  color: #fff; /* Texto negro */
+  border-radius: 30px;
+  font-size: 18px;
+}
+
+.social-text {
+  margin: 20px 0;
+  font-size: 16px;
+  color: #000;
+}
+
+.social-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.social-button {
+  width: 45%;
+  border-radius: 30px;
+  font-size: 14px;
+  background-color: #fff; /* Botón blanco */
+  color: #000; /* Texto negro */
+  --border-color: #000;
+}
+
+.social-button ion-icon {
+  margin-right: 10px;
+  color: #000; /* Icono negro */
+}
