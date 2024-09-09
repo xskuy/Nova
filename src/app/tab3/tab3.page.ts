@@ -80,22 +80,19 @@ export class Tab3Page implements OnInit {
 			if (this.loginForm.valid) {
 				const { username, password } = this.loginForm.value;
 				try {
-					const result = await this.loginService.login(new User(username, password));
-					console.log("Login successful", result);
-					// Redirigir al usuario a la página principal o dashboard
-					this.router.navigate(["/tabs/tab1"]);
+					const result = await this.loginService.login(username, password);
+					if (result) {
+						console.log('Login successful', result);
+						this.router.navigate(['/tabs/tab1']);
+					} else {
+						this.presentAlert('Error de login', 'Credenciales inválidas. Por favor, intente de nuevo.');
+					}
 				} catch (error) {
-					console.error("Login failed", error);
-					this.presentAlert(
-						"Error de login",
-						"Credenciales inválidas. Por favor, intente de nuevo.",
-					);
+					console.error('Login failed', error);
+					this.presentAlert('Error', 'Ocurrió un error durante el login. Por favor, intente de nuevo.');
 				}
 			} else {
-				this.presentAlert(
-					"Formulario inválido",
-					"Por favor, complete todos los campos correctamente.",
-				);
+				this.presentAlert('Formulario inválido', 'Por favor, complete todos los campos correctamente.');
 			}
 		}
 		async presentAlert(header: string, message: string) {
