@@ -40,6 +40,7 @@ h2 {
 
 .input-item {
   margin-bottom: 20px;
+  --border-radius: 10px;
 }
 
 ion-label {
@@ -89,3 +90,4 @@ ion-input {
   margin-right: 10px;
   color: #000; /* Icono negro */
 }
+

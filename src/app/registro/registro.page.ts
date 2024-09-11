@@ -78,7 +78,7 @@ export class RegistroPage implements OnInit {
       try {
         await this.loginService.register(username, password);
         this.presentAlert('Registro exitoso', 'Tu cuenta ha sido creada correctamente.');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/tabs/tab1']);
       } catch (error) {
         this.presentAlert('Error', 'No se pudo completar el registro. Por favor, intenta de nuevo.');
       }
@@ -97,7 +97,6 @@ export class RegistroPage implements OnInit {
   }
 
 	volverAInicio() {
-    // Navega de vuelta a la página de inicio o login
-    this.router.navigate(['/tabs/tab1']); // Ajusta esta ruta según tu configuración
+    this.router.navigate(['/tabs/tab1']); 
   }
 }

@@ -10,7 +10,7 @@ import { RegistroPage } from './registro.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-  ],
-  declarations: [RegistroPage]
+    RegistroPage
+  ]
 })
 export class RegistroPageModule {}

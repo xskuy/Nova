@@ -10,31 +10,18 @@
 
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <ion-item class="input-item">
-          <ion-input
-            type="text"
-            fill="solid"
-            label="Username"
-            labelPlacement="floating"
-            formControlName="username"
-          ></ion-input>
+          <ion-input type="text" fill="solid" label="Username" labelPlacement="floating"
+            formControlName="username"></ion-input>
         </ion-item>
+
 
         <ion-item class="input-item">
-          <ion-input
-            label="Password"
-            type="password"
-            labelPlacement="floating"
-            formControlName="password"
-          ></ion-input>
+          <ion-input class="input-login" label="Password" type="password" labelPlacement="floating"
+            formControlName="password"></ion-input>
         </ion-item>
 
-        <ion-button expand="block" type="submit"> Iniciar sesión </ion-button>
-        <ion-button
-          class="button-login"
-          expand="block"
-          type="submit"
-          routerLink="/registro"
-        >
+        <ion-button class="login-button" expand="block" (click)="login()"> Iniciar sesión </ion-button>
+        <ion-button class="login-button" expand="block" routerLink="/registro">
           Registrarse
         </ion-button>
       </form>
