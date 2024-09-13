@@ -92,7 +92,7 @@ export class Tab3Page implements OnInit {
 					this.presentAlert('Error', 'Ocurrió un error durante el login. Por favor, intente de nuevo.');
 				}
 			} else {
-				// this.presentAlert('Formulario inválido', 'Por favor, complete todos los campos correctamente.');
+				this.presentAlert('Formulario inválido', 'Por favor, complete todos los campos correctamente.');
 			}
 		}
 		async presentAlert(header: string, message: string) {
