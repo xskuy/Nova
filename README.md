@@ -17,13 +17,13 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
 1. **Clona el repositorio:**
 
     ```bash
-    git clone git@github.com:SrSebald/DesarrolloMovil_2024.git
+    git clone git@github.com:xskuy/Nova.git
     ```
 
 2. **Navega al directorio del proyecto:**
 
     ```bash
-    cd DesarrolloMovil_2024
+    cd Nova
     ```
 
 3. **Instala las dependencias con PNPM:**
