@@ -1,0 +1,58 @@
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+
+  h2 {
+    text-align: center;
+    color: var(--ion-color-primary);
+    margin-bottom: 20px;
+  }
+
+  form {
+    ion-item {
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 15px;
+    }
+
+    ion-label {
+      color: var(--ion-color-medium);
+    }
+
+    ion-input {
+      --padding-start: 10px;
+      --padding-end: 10px;
+      --background: var(--ion-color-light);
+      border-radius: 5px;
+    }
+
+    ion-text {
+      font-size: 12px;
+      padding-left: 16px;
+      margin-top: -10px;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    ion-button {
+      margin-top: 20px;
+    }
+  }
+}
+
+// Estilos adicionales para modo oscuro
+@media (prefers-color-scheme: dark) {
+  .register-container {
+    form {
+      ion-input {
+        --background: var(--ion-color-step-100);
+      }
+    }
+  }
+}
+
+ion-button[fill="clear"] {
+  margin-top: 20px;
+  --color: var(--ion-color-medium);
+}

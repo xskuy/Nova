@@ -1,0 +1,82 @@
+.page-tab1 {
+  ion-header {
+    --background: #fff;
+    --ion-toolbar-background: #fff;
+    --ion-text-color: #000;
+    border-bottom: 1px solid #000;
+  }
+
+  .welcome-title {
+    font-size: 1.5em;
+    color: #000;
+    margin-left: 10px;
+  }
+
+  .home-container {
+    padding: 16px;
+    background-color: #fff;
+    height: 100%;
+  }
+
+  ion-card.home-card {
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 8px;
+    box-shadow: none;
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    ion-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 16px;
+      border-bottom: 1px solid #000;
+    }
+
+    .card-icon {
+      font-size: 2em;
+      margin-right: 10px;
+      color: #000;
+    }
+
+    ion-card-title {
+      font-size: 1.2em;
+      color: #000;
+      margin: 0;
+    }
+
+    ion-card-content {
+      padding: 16px;
+      text-align: center;
+    }
+
+    ion-button {
+      --color: #000;
+      --border-radius: 20px;
+      --border: 1px solid #000;
+      --padding-start: 16px;
+      --padding-end: 16px;
+      --padding-top: 8px;
+      --padding-bottom: 8px;
+      text-transform: none;
+      font-weight: bold;
+      font-size: 1em;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    }
+  }
+
+  ion-grid {
+    --ion-grid-columns: 2;
+  }
+
+  ion-row {
+    margin-bottom: 16px;
+  }
+}

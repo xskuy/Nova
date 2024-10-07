@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="formularioLogin">
+        <ion-item>
+          <ion-input type="email" fill="solid" label="Email" labelPlacement="floating" errorText="Invalid email" ngModel
+            email></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Password" type="password" value="password"></ion-input>
+        </ion-item>
+        <ion-button class="button-login" expand="block" type="submit"> Ingresar </ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
