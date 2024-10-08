@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-avatar slot="start">
+      <img
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-title class="welcome-title">Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+    <div class="login-box">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-item class="input-item">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input
+            type="text"
+            fill="solid"
+            formControlName="username"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input
+            type="password"
+            fill="solid"
+            formControlName="password"
+          ></ion-input>
+        </ion-item>
+
+        <ion-button
+          class="login-button"
+          expand="block"
+          type="submit"
+          [disabled]="!loginForm.valid"
+        >
+          Iniciar sesión
+        </ion-button>
+        <ion-button
+          class="login-button"
+          expand="block"
+          routerLink="/registro"
+          fill="clear"
+        >
+          Registrarse
+        </ion-button>
+      </form>
+    </div>
+  </div>
+</ion-content>

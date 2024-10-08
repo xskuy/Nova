@@ -1,5 +1,6 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
+import { NavController } from '@ionic/angular';
 // biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
@@ -33,33 +34,23 @@ import { LoginService } from "../services/login.service";
 import { User } from "../models/user";
 // biome-ignore lint/style/useImportType: <explanation>
 import { AlertController } from "@ionic/angular";
+import { IonicModule } from "@ionic/angular";
+
 
 @Component({
-	selector: "app-tab3",
-	templateUrl: "tab3.page.html",
-	styleUrls: ["tab3.page.scss"],
-	standalone: true,
-	imports: [
-		IonContent,
-		IonHeader,
-		IonTitle,
-		IonToolbar,
-		IonCard,
-		IonCardHeader,
-		IonCardTitle,
-		IonCardContent,
-		IonItem,
-		IonLabel,
-		IonInput,
-		IonButton,
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-		RouterModule,
-		IonIcon,
-	],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: true,
+  imports: [
+    IonicModule,
+    RouterModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class Tab3Page implements OnInit {
+export class LoginComponent  implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
@@ -67,6 +58,7 @@ export class Tab3Page implements OnInit {
     private loginService: LoginService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
+    private navCtrl: NavController,
   ) {}
 
   ngOnInit() {
@@ -82,17 +74,16 @@ export class Tab3Page implements OnInit {
       try {
         const result = await this.loginService.login(username, password);
         if (result) {
-          console.log('Login successful', result);
-          this.router.navigate(['/tabs/home']); // Navegar a la sección principal tras el login
+          console.log('Login successful');
+          this.router.navigate(['/tabs/tab1']);
         } else {
-          this.presentAlert('Error de login', 'Credenciales inválidas. Por favor, intente de nuevo.');
+          console.log('Login failed');
+          this.presentAlert('Error', 'Credenciales inválidas');
         }
       } catch (error) {
-        console.error('Login failed', error);
-        this.presentAlert('Error', 'Ocurrió un error durante el login. Por favor, intente de nuevo.');
+        console.error('Login error', error);
+        this.presentAlert('Error', 'Ocurrió un error durante el inicio de sesión');
       }
-    } else {
-      this.presentAlert('Formulario inválido', 'Por favor, complete todos los campos correctamente.');
     }
   }
 
@@ -105,3 +96,5 @@ export class Tab3Page implements OnInit {
     await alert.present();
   }
 }
+
+

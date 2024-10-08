@@ -1,43 +1,40 @@
-import type { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import { AuthGuard } from '../guards/auth.guard';
 
-export const routes: Routes = [
+const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
+    //canActivate: [AuthGuard], // Protege todas las rutas de las tabs
     children: [
       {
         path: 'tab1',
         loadComponent: () =>
-          import('../tab1/tab1.page').then((m) => m.Tab1Page),
+          import('../tab1/tab1.page').then(m => m.Tab1Page),
       },
       {
         path: 'tab2',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../tab2/tab2.page').then(m => m.Tab2Page),
       },
       {
         path: 'tab3',
         loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
+          import('../tab3/tab3.page').then(m => m.Tab3Page),
       },
       {
-        path: 'registro',
-        loadComponent: () =>
-          import('../registro/registro.page').then((m) => m.RegistroPage),
-      },
-      {
-        path: '', 
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full',
-      },
-    ],
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full', 
-  },
+        path: '',
+        redirectTo: 'tab1',
+        pathMatch: 'full'
+      }
+    ]
+  }
 ];
 
-
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class TabsRoutingModule {}
