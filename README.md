@@ -1,6 +1,6 @@
 # 📱 Aplicación Móvil
 
-¡Bienvenido a nuestra aplicación móvil para la universidad! 🎓 Este proyecto está desarrollado con **Ionic** y gestionado con **PNPM**. Está diseñado para facilitar la vida académica de los estudiantes, ofreciendo herramientas y recursos esenciales en la palma de tu mano.
+¡Bienvenido a nuestra aplicación móvil para la universidad! 🎓 Este proyecto está desarrollado con **Ionic** y gestionado con **PNPM**. Está diseñado para facilitar la vida académica de los estudiantes, ofreciendo herramientas y recursos esenciales en la palma de tu mano.12
 
 ## 🚧 En Proceso
 
