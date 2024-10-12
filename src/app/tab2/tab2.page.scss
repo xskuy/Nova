@@ -1,3 +1,36 @@
+ion-content {
+    margin-top: 10%;           /* Bajar el contenido al 10% del header */
+    display: flex;             /* Usar flexbox para organizar los elementos */
+    flex-direction: column;    /* Colocar los elementos en columna */
+    align-items: center;       /* Alinear horizontalmente al centro */
+    justify-content: center;   /* Centrar verticalmente */
+    padding: 10px;             /* Añadir un poco de espacio interno */
+}
+
 ion-img {
-    border-radius: 50%;
+    display: block;            /* Asegurarse de que el elemento se comporte como bloque */
+    margin: 5px auto;          /* Auto en los lados horizontalmente centrará el elemento */
+    width: 80%;                /* Ajusta el ancho para que se vea mejor en diferentes pantallas */
+    height: auto;              /* Deja que la altura se ajuste automáticamente */
+    max-height: 50vh;          /* Limitar la altura máxima al 50% de la ventana */
+}
+
+ion-item {
+    display: flex;             /* Usar flexbox para centrar contenido */
+    justify-content: center;   /* Alinear horizontalmente al centro */
+    align-items: center;       /* Alinear verticalmente al centro */
+    margin: 10px 0;            /* Reducir la separación vertical entre los items */
+    width: 90%;                /* Ajusta el ancho para que no ocupe todo el ancho de la pantalla */
+    height: auto;              /* Deja que la altura se ajuste automáticamente */
+    padding: 10px;             /* Añadir relleno interno para mejor visibilidad */
+    box-sizing: border-box;    /* Para que el padding no afecte el ancho total */
+    text-align: center;        /* Centrar el texto dentro del ion-item */
+}
+
+ion-button {
+    display: block;            /* Asegura que el botón se comporte como bloque */
+    margin: 10px auto;         /* Centrará el botón con auto en los lados y margen superior/inferior */
+    width: 60%;                /* Ancho del botón para ajustarse al diseño */
+    height: auto;              /* Ajustar automáticamente la altura */
+    text-align: center;        /* Asegura que el texto del botón esté centrado */
 }

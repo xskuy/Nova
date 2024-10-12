@@ -1,14 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 2
-    </ion-title>
+    <ion-title> Tab 2 </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
-<ion-img src="assets/img/404.png"></ion-img>
-
-  
-
+<ion-content>
+  <ion-img src="assets/img/404.png"></ion-img>
+  <ion-item>
+    <ion-label>
+      <h1>Ups! this page is not available</h1>
+      <p>Maybe you should try going to the homepage</p>
+    </ion-label>
+  </ion-item>
+  <ion-button (click)="nextpage()" shape="round">Home</ion-button>
 </ion-content>
