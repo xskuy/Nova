@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | UrlTree {
-    if (this.loginService.sLoggedIn()) {
+    if (this.loginService.isLoggedIn()) {
       return true;
     } else {
       return this.router.parseUrl('/login');
