@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 export const routes: Routes = [
   {
@@ -19,11 +20,15 @@ export const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard]  
+  },
+  {
+    path: 'notfound',
+    loadComponent: () => import('./notfound/notfound.component').then(m => m.NotfoundComponent)  // Página de error 404
   },
   {
     path: '**',
-    redirectTo: 'login'
+    redirectTo: 'notfound' 
   }
 ];
 

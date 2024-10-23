@@ -14,7 +14,7 @@ export class Tab2Page {
   constructor(private route: Router) { }
 
   nextpage() {
-    this.route.navigate(['/home']);
+    this.route.navigate(['/tabs/tab1']);
   }
 
 }

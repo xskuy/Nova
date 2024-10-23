@@ -13,10 +13,10 @@ import {Router} from '@angular/router';
 
 export class NotfoundComponent   {
 
-  constructor(private route: Router) { }
+  constructor(private router: Router) { }
 
   nextpage() {
-    this.route.navigate(['/home']);
+    this.router.navigate(['/tabs/tab1']);
   }
 
 }
