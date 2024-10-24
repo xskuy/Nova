@@ -4,12 +4,30 @@
     --ion-toolbar-background: #fff;
     --ion-text-color: #000;
     border-bottom: 1px solid #000;
+
+    ion-toolbar {
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 0 16px; /* Ajusta el padding para el toolbar */
+    }
   }
 
   .welcome-title {
     font-size: 1.5em;
     color: #000;
-    margin-left: 10px;
+    margin-left: 8px; /* Ajusta el margen a la izquierda */
+  }
+
+  ion-avatar {
+    margin-right: 16px;
+  }
+
+  app-logout-button {
+    margin-left: auto; /* Asegúrate de que el botón esté a la derecha */
+    --background: red; /* Fondo rojo para el botón */
+    --color: white; /* Color del texto en blanco */
+    --border-radius: 20px; /* Bordes redondeados para el botón */
   }
 
   .home-container {

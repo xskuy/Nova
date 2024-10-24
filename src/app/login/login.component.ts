@@ -1,41 +1,14 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
-import { NavController } from '@ionic/angular';
-// biome-ignore lint/style/useImportType: <explanation>
-import {
-	ReactiveFormsModule,
-	FormGroup,
-	FormControl,
-	Validators,
-	FormBuilder,
-} from "@angular/forms";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
-import {
-	IonContent,
-	IonHeader,
-	IonTitle,
-	IonToolbar,
-	IonCard,
-	IonCardHeader,
-	IonCardTitle,
-	IonCardContent,
-	IonItem,
-	IonLabel,
-	IonInput,
-	IonButton,
-	IonIcon,
-} from "@ionic/angular/standalone";
-import { RouterModule } from "@angular/router";
-// biome-ignore lint/style/useImportType: <explanation>
 import { Router } from "@angular/router";
-// biome-ignore lint/style/useImportType: <explanation>
-import { LoginService } from "../services/login.service";
-import { User } from "../models/user";
-// biome-ignore lint/style/useImportType: <explanation>
+import {
+  ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
+  Validators,
+} from "@angular/forms";
 import { AlertController } from "@ionic/angular";
+import { LoginService } from "../services/login.service"; // Asegúrate de que el servicio tenga el método logout
 import { IonicModule } from "@ionic/angular";
-
 
 @Component({
   selector: 'app-login',
@@ -44,13 +17,10 @@ import { IonicModule } from "@ionic/angular";
   standalone: true,
   imports: [
     IonicModule,
-    RouterModule,
-    CommonModule,
-    FormsModule,
     ReactiveFormsModule,
   ],
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
@@ -58,7 +28,6 @@ export class LoginComponent  implements OnInit {
     private loginService: LoginService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private navCtrl: NavController,
   ) {}
 
   ngOnInit() {
@@ -84,6 +53,19 @@ export class LoginComponent  implements OnInit {
         console.error('Login error', error);
         this.presentAlert('Error', 'Ocurrió un error durante el inicio de sesión');
       }
+    } else {
+      this.presentAlert('Error', 'Por favor, complete todos los campos.');
+    }
+  }
+
+  async logout() {
+    try {
+      await this.loginService.logout(); // Asegúrate de que tu servicio tenga este método
+      console.log('Logout successful');
+      this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
+    } catch (error) {
+      console.error('Logout error', error);
+      this.presentAlert('Error', 'Ocurrió un error al cerrar sesión');
     }
   }
 
@@ -96,5 +78,4 @@ export class LoginComponent  implements OnInit {
     await alert.present();
   }
 }
-
 
