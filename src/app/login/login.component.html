@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-avatar slot="start">
       <img
-        class = "avatar-icon"
+        class="avatar-icon"
         alt="Silhouette of a person's head"
         src="https://ionicframework.com/docs/img/demos/avatar.svg"
       />
@@ -16,24 +16,40 @@
     <div class="login-box">
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <ion-item class="input-item">
-          <ion-label position="floating">Username</ion-label>
-          <br>
+          <ion-label position="floating">Email</ion-label>
           <ion-input
-            type="text"
+            type="email"
             fill="solid"
-            formControlName="username"
+            formControlName="email"
           ></ion-input>
         </ion-item>
+        <ion-text
+          color="danger"
+          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']"
+        >
+          <p>El email es requerido</p>
+        </ion-text>
+        <ion-text
+          color="danger"
+          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
+        >
+          <p>Por favor, ingrese un email válido</p>
+        </ion-text>
 
         <ion-item class="input-item">
-          <ion-label position="floating">Password</ion-label>
-          <br>
+          <ion-label position="floating">Contraseña</ion-label>
           <ion-input
             type="password"
             fill="solid"
             formControlName="password"
           ></ion-input>
         </ion-item>
+        <ion-text
+          color="danger"
+          *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
+        >
+          <p>La contraseña es requerida</p>
+        </ion-text>
 
         <ion-button
           class="login-button"
@@ -46,10 +62,18 @@
         <ion-button
           class="login-button"
           expand="block"
-          routerLink="/registro"
+          routerLink="/tabs/tab1"
           fill="clear"
         >
           Registrarse
+        </ion-button>
+        <ion-button
+          class="forgot-button"
+          expand="block"
+          fill="clear"
+          routerLink="/forgot-password"
+        >
+          Olvidé mi contraseña
         </ion-button>
       </form>
     </div>

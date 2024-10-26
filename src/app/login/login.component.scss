@@ -33,7 +33,7 @@
 .login-box {
   width: 90%;
   max-width: 400px;
-  background-color: #fff; /* Fondo gris oscuro para contraste */
+  background-color: #fff; /* Fondo blanco para contraste */
   padding: 20px;
   border-radius: 20px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
@@ -53,24 +53,24 @@ h2 {
 }
 
 ion-label {
-  color: #ccc; /* Color claro para el texto de los labels */
+  color: #000; /* Color negro para el texto de los labels */
 }
 
 ion-input {
-  color: #fff; /* Texto de los inputs en blanco */
+  color: #000; /* Texto de los inputs en negro */
 }
 
 .forgot-button {
-  position: absolute;
-  right: 0;
+  margin-top: 10px;
+  --background: transparent; /* Botón transparente */
+  color: #000; /* Texto negro */
   font-size: 14px;
-  color: #fff; /* Cambiado a blanco */
 }
 
 .login-button {
-  margin-top: 20px;
-  --background: #000; /* Botón blanco */
-  color: #fff; /* Texto negro */
+  margin-top: 10px;
+  --background: #000; /* Botón negro */
+  color: #fff; /* Texto blanco */
   border-radius: 30px;
   font-size: 18px;
 }
@@ -99,4 +99,3 @@ ion-input {
   margin-right: 10px;
   color: #000; /* Icono negro */
 }
-

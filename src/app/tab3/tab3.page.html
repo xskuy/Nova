@@ -1,0 +1,23 @@
+<ion-content class="login-container">
+  <ion-header class="login-header">
+    <ion-toolbar>
+      <ion-title>Profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card class="login-box">
+    <ion-card-header>
+      <ion-card-title>User Information</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="currentUser">
+      <ion-item>
+        <ion-label>Username:</ion-label>
+        <ion-label>{{ currentUser.username }}</ion-label>
+      </ion-item>
+      <!-- Add more user information here if needed -->
+    </ion-card-content>
+    <ion-card-content *ngIf="!currentUser">
+      <ion-label>No user logged in.</ion-label>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

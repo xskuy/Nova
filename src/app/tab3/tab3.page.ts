@@ -61,6 +61,7 @@ import { AlertController } from "@ionic/angular";
 })
 export class Tab3Page implements OnInit {
   loginForm!: FormGroup;
+  currentUser: User | null = null;
 
   constructor(
     private router: Router,
@@ -74,6 +75,7 @@ export class Tab3Page implements OnInit {
       username: ["", Validators.required],
       password: ["", Validators.required],
     });
+    this.currentUser = this.loginService.currentUserValue;
   }
 
   async login() {

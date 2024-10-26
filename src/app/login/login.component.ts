@@ -5,7 +5,6 @@ import { NavController } from '@ionic/angular';
 import {
 	ReactiveFormsModule,
 	FormGroup,
-	FormControl,
 	Validators,
 	FormBuilder,
 } from "@angular/forms";
@@ -25,16 +24,17 @@ import {
 	IonInput,
 	IonButton,
 	IonIcon,
+	IonAvatar,
+	IonText
 } from "@ionic/angular/standalone";
-import { RouterModule } from "@angular/router";
-// biome-ignore lint/style/useImportType: <explanation>
-import { Router } from "@angular/router";
+import { RouterModule, Router } from "@angular/router";
 // biome-ignore lint/style/useImportType: <explanation>
 import { LoginService } from "../services/login.service";
 import { User } from "../models/user";
 // biome-ignore lint/style/useImportType: <explanation>
 import { AlertController } from "@ionic/angular";
 import { IonicModule } from "@ionic/angular";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -43,46 +43,83 @@ import { IonicModule } from "@ionic/angular";
   styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
-    IonicModule,
-    RouterModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
+    // Importar todos los componentes de Ionic que necesitas
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton,
+    IonAvatar,
+    IonText
   ],
 })
-export class LoginComponent  implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private navCtrl: NavController,
+    private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required, Validators.minLength(6)]],
     });
   }
 
   async login() {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
+      const { email, password } = this.loginForm.value;
       try {
-        const result = await this.loginService.login(username, password);
-        if (result) {
-          console.log('Login successful');
-          this.router.navigate(['/tabs/tab1']);
-        } else {
-          console.log('Login failed');
-          this.presentAlert('Error', 'Credenciales inválidas');
+        console.log('Intentando iniciar sesión con:', email);
+        const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
+        console.log('Login exitoso:', userCredential);
+        
+        console.log('Intentando navegar a /tabs');
+        await this.router.navigate(['/tabs/tab1']);
+        console.log('Navegación completada');
+        
+      } catch (error: any) {
+        console.error('Error completo:', error);
+        let errorMessage = 'Ocurrió un error durante el inicio de sesión';
+        
+        switch (error.code) {
+          case 'auth/user-not-found':
+            errorMessage = 'No existe una cuenta con este correo electrónico.';
+            break;
+          case 'auth/wrong-password':
+            errorMessage = 'Contraseña incorrecta.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'El formato del correo electrónico no es válido.';
+            break;
+          case 'auth/user-disabled':
+            errorMessage = 'Esta cuenta ha sido deshabilitada.';
+            break;
         }
-      } catch (error) {
-        console.error('Login error', error);
-        this.presentAlert('Error', 'Ocurrió un error durante el inicio de sesión');
+        
+        await this.presentAlert('Error', errorMessage);
+      }
+    } else {
+      if (this.loginForm.get('email')?.hasError('required')) {
+        await this.presentAlert('Error', 'Por favor, ingrese su correo electrónico');
+      } else if (this.loginForm.get('email')?.hasError('email')) {
+        await this.presentAlert('Error', 'Por favor, ingrese un correo electrónico válido');
+      } else if (this.loginForm.get('password')?.hasError('required')) {
+        await this.presentAlert('Error', 'Por favor, ingrese su contraseña');
+      } else if (this.loginForm.get('password')?.hasError('minlength')) {
+        await this.presentAlert('Error', 'La contraseña debe tener al menos 6 caracteres');
       }
     }
   }
@@ -96,5 +133,3 @@ export class LoginComponent  implements OnInit {
     await alert.present();
   }
 }
-
-

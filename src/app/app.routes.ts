@@ -18,13 +18,17 @@ export const routes: Routes = [
     loadComponent: () => import('./registro/registro.page').then(m => m.RegistroPage)
   },
   {
-    path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
-    canActivate: [AuthGuard]  
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent)
   },
   {
     path: 'notfound',
     loadComponent: () => import('./notfound/notfound.component').then(m => m.NotfoundComponent)  // Página de error 404
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsModule),
+    canActivate: [AuthGuard]  
   },
   {
     path: '**',

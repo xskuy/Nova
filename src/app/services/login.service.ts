@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { User } from "../models/user";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -10,10 +11,14 @@ export class LoginService {
     new User("user", "user"),
     new User("guest", "guest"),
   ];
-
   private loggedUser: User | null = null;
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   constructor() {
+    const storedUsers = localStorage.getItem("users");
+    if (storedUsers) {
+      this.users = JSON.parse(storedUsers);
+    }
     this.loadLoggedUser();
   }
 
@@ -23,6 +28,7 @@ export class LoginService {
     );
     if (foundUser) {
       this.loggedUser = foundUser;
+      this.currentUserSubject.next(this.loggedUser); // Update the subject
       localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
       return true;
     }
@@ -31,6 +37,7 @@ export class LoginService {
 
   logout(): void {
     this.loggedUser = null;
+    this.currentUserSubject.next(null); // Update the subject
     localStorage.removeItem("loggedUser");
   }
 
@@ -38,7 +45,6 @@ export class LoginService {
     return this.loggedUser;
   }
 
-  // Nuevo método para obtener el nombre del usuario actual
   getLoggedUsername(): string | null {
     return this.loggedUser ? this.loggedUser.username : null;
   }
@@ -68,6 +74,11 @@ export class LoginService {
     const storedUser = localStorage.getItem("loggedUser");
     if (storedUser) {
       this.loggedUser = JSON.parse(storedUser);
+      this.currentUserSubject.next(this.loggedUser); // Update the subject
     }
+  }
+
+  public get currentUserValue(): User | null {
+    return this.currentUserSubject.value; // This will never be undefined
   }
 }

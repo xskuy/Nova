@@ -21,6 +21,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import  { AlertController } from '@ionic/angular'
 // biome-ignore lint/style/useImportType: <explanation>
 import  { LoginService } from '../services/login.service'
+import { AngularFireAuth } from '@angular/fire/compat/auth'
 
 @Component({
   selector: 'app-registro',
@@ -50,23 +51,19 @@ export class RegistroPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private alertController: AlertController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required]
     }, { validator: this.checkPasswords });
   }
 
-  goToTabs() {
-    this.router.navigate(['/tabs/tab3'])
-  }
-  
-
-	checkPasswords(group: FormGroup) {
+  checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
@@ -74,16 +71,36 @@ export class RegistroPage implements OnInit {
 
 	async onSubmit() {
     if (this.registerForm.valid) {
-      const { fullName, username, password } = this.registerForm.value;
+      const { email, password } = this.registerForm.value;
       try {
-        await this.loginService.register(username, password);
-        this.presentAlert('Registro exitoso', 'Tu cuenta ha sido creada correctamente.');
-        this.router.navigate(['/tabs/tab1']);
-      } catch (error) {
-        this.presentAlert('Error', 'No se pudo completar el registro. Por favor, intenta de nuevo.');
+        console.log('Intentando crear usuario con email:', email);
+        const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
+        console.log('Usuario creado exitosamente:', userCredential);
+        await this.presentAlert('Éxito', 'Tu cuenta ha sido creada correctamente.');
+        this.router.navigate(['/login']);
+      } catch (error: any) {
+        console.error('Error al crear usuario:', error);
+        let errorMessage = 'No se pudo crear la cuenta.';
+        
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMessage = 'Este correo electrónico ya está registrado.';
+            break;
+          case 'auth/invalid-email':
+            errorMessage = 'El formato del correo electrónico no es válido.';
+            break;
+          case 'auth/operation-not-allowed':
+            errorMessage = 'La creación de cuentas está deshabilitada.';
+            break;
+          case 'auth/weak-password':
+            errorMessage = 'La contraseña es demasiado débil.';
+            break;
+        }
+        
+        await this.presentAlert('Error', errorMessage);
       }
     } else {
-      this.presentAlert('Formulario inválido', 'Por favor, completa todos los campos correctamente.');
+      await this.presentAlert('Error', 'Por favor, completa todos los campos correctamente.');
     }
   }
 
@@ -97,6 +114,6 @@ export class RegistroPage implements OnInit {
   }
 
 	volverAInicio() {
-    this.router.navigate(['/tabs/tab1']); 
+    this.router.navigate(['/login']); 
   }
 }
