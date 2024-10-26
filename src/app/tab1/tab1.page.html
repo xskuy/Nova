@@ -1,13 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-avatar slot="start">
-      <img
-        class ="avatar-icon"
-        alt="Silhouette of a person's head"
-        src="https://ionicframework.com/docs/img/demos/avatar.svg"
-      />
-    </ion-avatar>
-    <ion-title class="welcome-title">Welcome {{ username }}</ion-title>
+    <div class="header-grid">
+      <ion-avatar>
+        <img
+          class="avatar-icon"
+          alt="Silhouette of a person's head"
+          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+        />
+      </ion-avatar>
+      <ion-title class="welcome-title"
+        >{{ greeting }}, {{ getUserFirstName() }}</ion-title
+      >
+      <app-logout-button></app-logout-button>
+    </div>
   </ion-toolbar>
 </ion-header>
 

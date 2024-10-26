@@ -1,84 +1,93 @@
 import { Injectable } from "@angular/core";
-import { User } from "../models/user";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: "root",
 })
 export class LoginService {
-  users: User[] = [
-    new User("admin", "admin"),
-    new User("user", "user"),
-    new User("guest", "guest"),
-  ];
-  private loggedUser: User | null = null;
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUser: Observable<any>;
 
-  constructor() {
-    const storedUsers = localStorage.getItem("users");
-    if (storedUsers) {
-      this.users = JSON.parse(storedUsers);
-    }
-    this.loadLoggedUser();
+  constructor(private afAuth: AngularFireAuth) {
+    // Observar el estado de autenticación
+    this.afAuth.authState.subscribe(user => {
+      this.currentUserSubject.next(user);
+    });
+    this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  login(username: string, password: string): boolean {
-    const foundUser = this.users.find(
-      (u) => u.username === username && u.password === password
-    );
-    if (foundUser) {
-      this.loggedUser = foundUser;
-      this.currentUserSubject.next(this.loggedUser); // Update the subject
-      localStorage.setItem("loggedUser", JSON.stringify(this.loggedUser));
+  async login(email: string, password: string): Promise<boolean> {
+    try {
+      const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+      if (result.user) {
+        this.currentUserSubject.next(result.user);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Error en login:', error);
+      throw error;
+    }
+  }
+
+  async logout(): Promise<boolean> {
+    try {
+      await this.afAuth.signOut();
+      this.currentUserSubject.next(null);
       return true;
-    }
-    return false;
-  }
-
-  logout(): void {
-    this.loggedUser = null;
-    this.currentUserSubject.next(null); // Update the subject
-    localStorage.removeItem("loggedUser");
-  }
-
-  getLoggedUser(): User | null {
-    return this.loggedUser;
-  }
-
-  getLoggedUsername(): string | null {
-    return this.loggedUser ? this.loggedUser.username : null;
-  }
-
-  register(username: string, password: string): User {
-    if (this.users.some((u) => u.username === username)) {
-      throw new Error("El nombre de usuario ya está en uso");
-    }
-
-    const newUser = new User(username, password);
-    this.users.push(newUser);
-
-    this.saveUsers();
-
-    return newUser;
-  }
-
-  private saveUsers(): void {
-    localStorage.setItem("users", JSON.stringify(this.users));
-  }
-
-  isLoggedIn(): boolean {
-    return this.loggedUser !== null;
-  }
-
-  private loadLoggedUser(): void {
-    const storedUser = localStorage.getItem("loggedUser");
-    if (storedUser) {
-      this.loggedUser = JSON.parse(storedUser);
-      this.currentUserSubject.next(this.loggedUser); // Update the subject
+    } catch (error) {
+      console.error('Error en logout:', error);
+      return false;
     }
   }
 
-  public get currentUserValue(): User | null {
-    return this.currentUserSubject.value; // This will never be undefined
+  async register(email: string, password: string): Promise<any> {
+    try {
+      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      return result.user;
+    } catch (error) {
+      console.error('Error en registro:', error);
+      throw error;
+    }
+  }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => !!user)
+    );
+  }
+
+  getCurrentUser(): Observable<any> {
+    return this.currentUser;
+  }
+
+  getCurrentUserValue(): any {
+    return this.currentUserSubject.value;
+  }
+
+  // Método para obtener el email del usuario actual
+  getLoggedEmail(): string | null {
+    const user = this.currentUserSubject.value;
+    return user ? user.email : null;
+  }
+
+  // Método para verificar el email
+  async sendEmailVerification(): Promise<void> {
+    const user = await this.afAuth.currentUser;
+    if (user) {
+      await user.sendEmailVerification();
+    }
+  }
+
+  // Método para restablecer la contraseña
+  async resetPassword(email: string): Promise<void> {
+    try {
+      await this.afAuth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.error('Error al enviar email de recuperación:', error);
+      throw error;
+    }
   }
 }

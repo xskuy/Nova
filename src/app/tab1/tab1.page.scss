@@ -4,70 +4,78 @@
     --ion-toolbar-background: #fff;
     --ion-text-color: #000;
     border-bottom: 1px solid #000;
-  }
 
-  .welcome-title {
-    font-size: 1.5em;
-    color: #000;
-    margin-left: 10px;
+    ion-toolbar {
+      --padding-top: 4px;
+      --padding-bottom: 4px;
+      --min-height: 45px;
+    }
   }
 
   .home-container {
     padding: 16px;
-    background-color: #fff;
-    height: 100%;
-  }
+    background-color: #f8f9fa;
+    min-height: 100%;
 
-  ion-card.home-card {
-    background-color: #fff;
-    border: 1px solid #000;
-    border-radius: 8px;
-    box-shadow: none;
-    transition: transform 0.2s;
-    
-    &:hover {
-      transform: scale(1.02);
+    ion-grid {
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    ion-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 16px;
-      border-bottom: 1px solid #000;
-    }
-
-    .card-icon {
-      font-size: 2em;
-      margin-right: 10px;
-      color: #000;
-    }
-
-    ion-card-title {
-      font-size: 1.2em;
-      color: #000;
-      margin: 0;
-    }
-
-    ion-card-content {
-      padding: 16px;
-      text-align: center;
-    }
-
-    ion-button {
-      --color: #000;
-      --border-radius: 20px;
-      --border: 1px solid #000;
-      --padding-start: 16px;
-      --padding-end: 16px;
-      --padding-top: 8px;
-      --padding-bottom: 8px;
-      text-transform: none;
-      font-weight: bold;
-      font-size: 1em;
-
+    ion-card.home-card {
+      margin: 8px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border: none;
+      
       &:hover {
-        background-color: #f0f0f0;
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      }
+
+      ion-card-header {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+
+        .card-icon {
+          font-size: 24px;
+          margin-right: 12px;
+          color: #0d6efd;
+        }
+
+        ion-card-title {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: #212529;
+          margin: 0;
+        }
+      }
+
+      ion-card-content {
+        padding: 16px;
+
+        ion-button {
+          --background: transparent;
+          --background-hover: #f8f9fa;
+          --color: #0d6efd;
+          --border-radius: 8px;
+          --padding-start: 16px;
+          --padding-end: 16px;
+          --padding-top: 10px;
+          --padding-bottom: 10px;
+          
+          font-weight: 500;
+          text-transform: none;
+          letter-spacing: 0.3px;
+          
+          &:hover {
+            --background: #f8f9fa;
+          }
+        }
       }
     }
   }
@@ -80,11 +88,114 @@
     margin-bottom: 16px;
   }
 }
+
 .avatar-icon {
-  margin-top: 5px;
-  margin-left: 5px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+// Estilos específicos para el botón de logout
+:host ::ng-deep app-logout-button {
+  ion-button {
+    --background: #dc3545;
+    --background-hover: #bb2d3b;
+    --color: white;
+    --border-radius: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --box-shadow: none;
+    
+    margin: 0;
+    height: 36px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    &:hover {
+      --background: #bb2d3b;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  ion-header ion-toolbar {
+    padding: 4px 8px;
+  }
+
+  .home-container {
+    padding: 8px;
+  }
+
+  ion-card.home-card {
+    margin: 4px;
+
+    ion-card-header {
+      padding: 12px;
+
+      .card-icon {
+        font-size: 20px;
+      }
+
+      ion-card-title {
+        font-size: 1rem;
+      }
+    }
+
+    ion-card-content {
+      padding: 12px;
+    }
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px; // altura específica para el header
+  padding: 0 8px;
+
+  ion-avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+
+  ion-title {
+    padding: 0;
+    text-align: left;
+  }
+
+  app-logout-button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+// Asegúrate de que el título esté alineado correctamente
+ion-title.welcome-title {
+  font-size: 1rem;
+  padding-inline-start: 0;
+  padding-inline-end: 0;
+}
+
+.header-grid {
+  display: grid;
+  grid-template-columns: 35px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+
+  ion-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .welcome-title {
+    font-size: 0.9rem;
+    padding: 0;
+  }
 }

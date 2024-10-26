@@ -75,7 +75,7 @@ export class Tab3Page implements OnInit {
       username: ["", Validators.required],
       password: ["", Validators.required],
     });
-    this.currentUser = this.loginService.currentUserValue;
+    this.currentUser = this.loginService.getCurrentUserValue();
   }
 
   async login() {

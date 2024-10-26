@@ -1,7 +1,4 @@
-// biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
-import { NavController } from '@ionic/angular';
-// biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
 	FormGroup,
@@ -29,10 +26,10 @@ import {
 } from "@ionic/angular/standalone";
 import { RouterModule, Router } from "@angular/router";
 // biome-ignore lint/style/useImportType: <explanation>
-import { LoginService } from "../services/login.service";
 import { User } from "../models/user";
 // biome-ignore lint/style/useImportType: <explanation>
 import { AlertController } from "@ionic/angular";
+import { LoginService } from "../services/login.service"; // Asegúrate de que el servicio tenga el método logout
 import { IonicModule } from "@ionic/angular";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
@@ -60,6 +57,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
     IonText
   ],
 })
+
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
@@ -67,14 +65,20 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private navCtrl: NavController,
     private afAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
+    // Verificar si ya hay una sesión activa
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        this.router.navigate(['/tabs/tab1']);
+      }
     });
   }
 
@@ -82,54 +86,34 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       try {
-        console.log('Intentando iniciar sesión con:', email);
-        const userCredential = await this.afAuth.signInWithEmailAndPassword(email, password);
-        console.log('Login exitoso:', userCredential);
-        
-        console.log('Intentando navegar a /tabs');
-        await this.router.navigate(['/tabs/tab1']);
-        console.log('Navegación completada');
-        
+        const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+        if (result.user) {
+          console.log('Login exitoso');
+          await this.router.navigate(['/tabs/tab1']);
+        }
       } catch (error: any) {
-        console.error('Error completo:', error);
-        let errorMessage = 'Ocurrió un error durante el inicio de sesión';
+        console.error('Error en login:', error);
+        let message = 'Error al iniciar sesión';
         
         switch (error.code) {
           case 'auth/user-not-found':
-            errorMessage = 'No existe una cuenta con este correo electrónico.';
+            message = 'No existe una cuenta con este correo.';
             break;
           case 'auth/wrong-password':
-            errorMessage = 'Contraseña incorrecta.';
+            message = 'Contraseña incorrecta.';
             break;
           case 'auth/invalid-email':
-            errorMessage = 'El formato del correo electrónico no es válido.';
-            break;
-          case 'auth/user-disabled':
-            errorMessage = 'Esta cuenta ha sido deshabilitada.';
+            message = 'Correo electrónico inválido.';
             break;
         }
         
-        await this.presentAlert('Error', errorMessage);
-      }
-    } else {
-      if (this.loginForm.get('email')?.hasError('required')) {
-        await this.presentAlert('Error', 'Por favor, ingrese su correo electrónico');
-      } else if (this.loginForm.get('email')?.hasError('email')) {
-        await this.presentAlert('Error', 'Por favor, ingrese un correo electrónico válido');
-      } else if (this.loginForm.get('password')?.hasError('required')) {
-        await this.presentAlert('Error', 'Por favor, ingrese su contraseña');
-      } else if (this.loginForm.get('password')?.hasError('minlength')) {
-        await this.presentAlert('Error', 'La contraseña debe tener al menos 6 caracteres');
+        const alert = await this.alertController.create({
+          header: 'Error',
+          message: message,
+          buttons: ['OK']
+        });
+        await alert.present();
       }
     }
-  }
-
-  async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ["OK"],
-    });
-    await alert.present();
   }
 }
