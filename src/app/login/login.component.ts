@@ -31,7 +31,6 @@ import { User } from "../models/user";
 import { AlertController } from "@ionic/angular";
 import { LoginService } from "../services/login.service"; // Asegúrate de que el servicio tenga el método logout
 import { IonicModule } from "@ionic/angular";
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 
 @Component({
@@ -65,7 +64,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private afAuth: AngularFireAuth
+    private loginService: LoginService
   ) {}
 
   ngOnInit() {
@@ -73,23 +72,31 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
-
-    // Verificar si ya hay una sesión activa
-    this.afAuth.authState.subscribe(user => {
-      if (user) {
-        this.router.navigate(['/tabs/tab1']);
-      }
-    });
   }
 
   async login() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       try {
-        const result = await this.afAuth.signInWithEmailAndPassword(email, password);
-        if (result.user) {
-          console.log('Login exitoso');
-          await this.router.navigate(['/tabs/tab1']);
+        const success = await this.loginService.login(email, password);
+        if (success) {
+          const user = this.loginService.getCurrentUserValue();
+          if (user && !user.emailVerified) {
+            // Mostrar alerta pero permitir continuar
+            const alert = await this.alertController.create({
+              header: 'Aviso',
+              message: 'Tu email no está verificado. Por favor, verifica tu email cuando puedas.',
+              buttons: [{
+                text: 'Continuar',
+                handler: () => {
+                  this.router.navigate(['/tabs/tab1']);
+                }
+              }]
+            });
+            await alert.present();
+          } else {
+            await this.router.navigate(['/tabs/tab1']);
+          }
         }
       } catch (error: any) {
         console.error('Error en login:', error);
@@ -105,6 +112,11 @@ export class LoginComponent implements OnInit {
           case 'auth/invalid-email':
             message = 'Correo electrónico inválido.';
             break;
+          case 'auth/invalid-credential':
+            message = 'Correo o contraseña incorrectos.';
+            break;
+          default:
+            message = 'Error al iniciar sesión. Por favor, intente nuevamente.';
         }
         
         const alert = await this.alertController.create({

@@ -1,6 +1,7 @@
 import { Component, type OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import {
   IonContent,
   IonHeader,
@@ -11,6 +12,7 @@ import {
   IonLabel,
   IonInput,
   IonText,
+  IonBackButton
 } from '@ionic/angular/standalone'
 import { RouterModule } from '@angular/router'
 // biome-ignore lint/style/useImportType: <explanation>
@@ -28,20 +30,22 @@ import { AngularFireAuth } from '@angular/fire/compat/auth'
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
   standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
-    RouterModule,
+    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
     IonButton,
+    IonBackButton,
+    IonTitle,
+    IonContent,
     IonItem,
     IonLabel,
     IonInput,
-    IonText,
-		ReactiveFormsModule,
+    IonButton,
+    IonText
   ],
 })
 export class RegistroPage implements OnInit {
@@ -69,15 +73,24 @@ export class RegistroPage implements OnInit {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-	async onSubmit() {
+	async register() {
     if (this.registerForm.valid) {
-      const { email, password } = this.registerForm.value;
       try {
-        console.log('Intentando crear usuario con email:', email);
-        const userCredential = await this.afAuth.createUserWithEmailAndPassword(email, password);
-        console.log('Usuario creado exitosamente:', userCredential);
-        await this.presentAlert('Éxito', 'Tu cuenta ha sido creada correctamente.');
-        this.router.navigate(['/login']);
+        const { email, password } = this.registerForm.value;
+        const user = await this.loginService.register(email, password);
+        if (user) {
+          const alert = await this.alertController.create({
+            header: 'Registro exitoso',
+            message: 'Por favor, verifica tu correo electrónico antes de iniciar sesión.',
+            buttons: [{
+              text: 'OK',
+              handler: () => {
+                this.router.navigate(['/login']);
+              }
+            }]
+          });
+          await alert.present();
+        }
       } catch (error: any) {
         console.error('Error al crear usuario:', error);
         let errorMessage = 'No se pudo crear la cuenta.';

@@ -31,7 +31,7 @@
 }
 
 .login-box {
-  width: 90%;
+  width: 90%; 
   max-width: 400px;
   background-color: #fff; /* Fondo blanco para contraste */
   padding: 20px;
@@ -57,7 +57,16 @@ ion-label {
 }
 
 ion-input {
-  color: #000; /* Texto de los inputs en negro */
+  --color: white !important;
+  --placeholder-color: white !important;
+  
+  &.ion-touched, &.ion-dirty {
+    --color: white !important;
+  }
+
+  &::part(input) {
+    color: white !important;
+  }
 }
 
 .forgot-button {
@@ -98,4 +107,11 @@ ion-input {
 .social-button ion-icon {
   margin-right: 10px;
   color: #000; /* Icono negro */
+}
+
+// Si estás usando ion-item, también podrías necesitar esto
+ion-item {
+  --highlight-color-focused: white;
+  --highlight-color-valid: white;
+  --highlight-color-invalid: var(--ion-color-danger);
 }

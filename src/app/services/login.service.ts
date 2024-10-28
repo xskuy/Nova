@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -10,8 +11,11 @@ export class LoginService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser: Observable<any>;
 
-  constructor(private afAuth: AngularFireAuth) {
-    // Observar el estado de autenticación
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router
+  ) {
+    // Simplificar la suscripción para solo actualizar el estado
     this.afAuth.authState.subscribe(user => {
       this.currentUserSubject.next(user);
     });
@@ -22,7 +26,11 @@ export class LoginService {
     try {
       const result = await this.afAuth.signInWithEmailAndPassword(email, password);
       if (result.user) {
+        console.log('Usuario autenticado:', result.user.email);
         this.currentUserSubject.next(result.user);
+        if (!result.user.emailVerified) {
+          console.warn('Email no verificado');
+        }
         return true;
       }
       return false;
@@ -46,7 +54,11 @@ export class LoginService {
   async register(email: string, password: string): Promise<any> {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
-      return result.user;
+      if (result.user) {
+        await this.sendEmailVerification();
+        return result.user;
+      }
+      return null;
     } catch (error) {
       console.error('Error en registro:', error);
       throw error;
@@ -55,7 +67,10 @@ export class LoginService {
 
   isLoggedIn(): Observable<boolean> {
     return this.afAuth.authState.pipe(
-      map(user => !!user)
+      map(user => {
+        // Opcional: puedes agregar más validaciones aquí si es necesario
+        return !!user;
+      })
     );
   }
 
@@ -89,5 +104,11 @@ export class LoginService {
       console.error('Error al enviar email de recuperación:', error);
       throw error;
     }
+  }
+
+  // Método para verificar si el email está verificado
+  isEmailVerified(): boolean {
+    const user = this.currentUserSubject.value;
+    return user ? user.emailVerified : false;
   }
 }
