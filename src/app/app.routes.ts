@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotfoundComponent } from './notfound/notfound.component';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -24,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'notfound',
     loadComponent: () => import('./notfound/notfound.component').then(m => m.NotfoundComponent)  // Página de error 404
+  },
+  {
+    path: 'cursos',
+    loadComponent: () => import('./cursos/cursos.page').then(m => m.CursosPage)  // Página de los cursos
   },
   {
     path: 'tabs',

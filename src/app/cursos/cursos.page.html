@@ -1,9 +1,46 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tus cursos, </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Tus cursos, {{ getUserFirstName() }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
- 
+  <ion-card class ="small-card">
+    <img alt="Silhouette of mountains" src="assets/img/movil.png" />
+    <ion-card-header>
+      <ion-card-title>Desarrollo de Aplicaciones Moviles 012_D</ion-card-title>
+      <ion-card-subtitle>Carlos Martinez </ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      En este curso aprenderás a trabajar en el desarrollo de aplicaciones moviles con un enfoque de desarrollo mixto. 
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class ="small-card">
+    <img alt="Silhouette of mountains" src="assets/img/curso-sql-bases-de-datos.jpg" />
+    <ion-card-header>
+      <ion-card-title>Programación de Base de Datos 007_BD</ion-card-title>
+      <ion-card-subtitle>Benjamin Mora</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      La programación de base de datos es el proceso de crear, actualizar, eliminar, insertar, consultar y manipular datos en una base de datos. Para ello, se utilizan lenguajes de base de datos, como SQL  
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class ="small-card">
+    <img alt="Silhouette of mountains" src="assets/img/arquitectura.jpg" />
+    <ion-card-header>
+      <ion-card-title>Arquitectura de Software</ion-card-title>
+      <ion-card-subtitle>Emilio Soto</ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content>
+      En este curso aprenderás la a forma en que se organizan los elementos de un sistema de software, y las decisiones de diseño que se toman para definir su estructura y comportamiento. 
+    </ion-card-content>
+  </ion-card>
 </ion-content>
