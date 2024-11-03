@@ -1,13 +1,20 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title> Escaner QR </ion-title>
-    <!-- Botón de cierre de sesión -->
-    <app-logout-button></app-logout-button>
+    <ion-title>Escaneo QR</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  
-  <ion-button expand="full" (click)="scanQRCode()">Escanear Código QR</ion-button>
+<ion-content class="ion-padding">
+  <!-- Button to initiate QR scan -->
+  <ion-button expand="block" (click)="scanQRCode()">Escanear QR</ion-button>
+
+  <!-- Display the result of the QR scan -->
+  <div *ngIf="result" class="result-container">
+    <h2>Resultado del Escaneo</h2>
+    <p>{{ result }}</p>
+    <ion-button color="primary" (click)="clearResult()">Limpiar Resultado</ion-button>
+  </div>
 </ion-content>
+
+
 
