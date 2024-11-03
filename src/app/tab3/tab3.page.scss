@@ -1,95 +1,122 @@
-.login-container {
+/* academic-profile.component.scss */
+.profile-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   height: 100%;
-  background-color: #000; /* Fondo negro */
-}
-
-.login-header {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  background-color: #111; /* Un poco más claro que el fondo */
-}
-
-.signup-link {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 16px;
-  color: #fff; /* Texto blanco */
-}
-
-.login-box {
-  width: 90%;
-  max-width: 400px;
-  background-color: #222; /* Fondo oscuro para contraste */
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
-  text-align: center;
-  color: #fff; /* Texto blanco */
-}
-
-h2 {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #fff; /* Texto blanco */
-}
-
-.input-item {
-  margin-bottom: 20px;
-  --border-radius: 10px;
-}
-
-ion-label {
-  color: #ccc; /* Color claro para el texto de los labels */
-}
-
-ion-input {
-  color: #fff; /* Texto de los inputs en blanco */
-}
-
-.forgot-button {
-  position: absolute;
-  right: 0;
-  font-size: 14px;
-  color: #fff; /* Texto blanco */
-}
-
-.login-button {
-  margin-top: 20px;
-  --background: #fff; /* Botón blanco */
-  color: #000; /* Texto negro */
-  border-radius: 30px;
-  font-size: 18px;
-}
-
-.social-text {
-  margin: 20px 0;
-  font-size: 16px;
-  color: #fff; /* Texto blanco */
-}
-
-.social-buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.social-button {
-  width: 45%;
-  border-radius: 30px;
-  font-size: 14px;
-  background-color: #fff; /* Botón blanco */
-  color: #000; /* Texto negro */
-  --border-color: #000;
-}
-
-.social-button ion-icon {
-  margin-right: 10px;
-  color: #000; /* Icono negro */
+  
+  .avatar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 24px;
+    
+    .avatar-container {
+      position: relative;
+      margin-bottom: 16px;
+      
+      ion-avatar {
+        width: 120px;
+        height: 120px;
+        border: 3px solid var(--ion-color-primary);
+      }
+      
+      .camera-button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        --background: var(--ion-color-primary);
+      }
+    }
+    
+    h1 {
+      margin: 8px 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+    }
+    
+    .email-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--ion-color-medium);
+      
+      ion-icon {
+        font-size: 16px;
+      }
+      
+      p {
+        margin: 0;
+      }
+    }
+  }
+  
+  ion-card {
+    margin: 0 0 16px 0;
+    
+    .academic-info {
+      display: flex;
+      justify-content: space-around;
+      padding: 8px 0;
+      
+      .info-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        
+        ion-icon {
+          font-size: 24px;
+          color: var(--ion-color-primary);
+        }
+        
+        span {
+          color: var(--ion-color-medium);
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  
+  ion-list {
+    background: transparent;
+    padding: 0;
+    
+    ion-item {
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 8px;
+      --background: transparent;
+      
+      ion-icon {
+        color: var(--ion-color-primary);
+        margin-right: 16px;
+      }
+      
+      ion-label {
+        h2 {
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 4px;
+        }
+        
+        p {
+          color: var(--ion-color-medium);
+        }
+      }
+    }
+  }
+  
+  .button-container {
+    margin-top: auto;
+    padding-top: 24px;
+    
+    ion-button {
+      margin-bottom: 8px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

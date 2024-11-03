@@ -1,23 +1,91 @@
-<ion-content class="login-container">
-  <ion-header class="login-header">
-    <ion-toolbar>
-      <ion-title>Profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<!-- academic-profile.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Perfil Académico</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-card class="login-box">
-    <ion-card-header>
-      <ion-card-title>User Information</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="currentUser">
+<ion-content class="ion-padding">
+  <div class="profile-container">
+    <!-- Avatar Section -->
+    <div class="avatar-section">
+      <div class="avatar-container">
+        <ion-avatar>
+          <img [src]="profile.avatar" alt="Foto de perfil" />
+        </ion-avatar>
+        <ion-fab-button
+          size="small"
+          class="camera-button"
+          (click)="updateProfilePhoto()"
+        >
+          <ion-icon name="camera"></ion-icon>
+        </ion-fab-button>
+      </div>
+      <h1>{{profile.name}}</h1>
+      <div class="email-container">
+        <ion-icon name="mail-outline"></ion-icon>
+        <p>{{profile.email}}</p>
+      </div>
+    </div>
+
+    <!-- Academic Info Card -->
+    <ion-card>
+      <ion-card-content>
+        <div class="academic-info">
+          <div class="info-item">
+            <ion-icon name="school-outline"></ion-icon>
+            <span>{{profile.semester}}</span>
+          </div>
+          <div class="info-item">
+            <ion-icon name="book-outline"></ion-icon>
+            <span>{{profile.program}}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Detail List -->
+    <ion-list>
       <ion-item>
-        <ion-label>Username:</ion-label>
-        <ion-label>{{ currentUser.username }}</ion-label>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Matrícula</h2>
+          <p>{{profile.studentId}}</p>
+        </ion-label>
       </ion-item>
-      <!-- Add more user information here if needed -->
-    </ion-card-content>
-    <ion-card-content *ngIf="!currentUser">
-      <ion-label>No user logged in.</ion-label>
-    </ion-card-content>
-  </ion-card>
+
+      <ion-item>
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Campus</h2>
+          <p>{{profile.campus}}</p>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon name="calendar-outline" slot="start"></ion-icon>
+        <ion-label>
+          <h2>Periodo Actual</h2>
+          <p>{{profile.period}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <!-- Action Buttons -->
+    <div class="button-container">
+      <ion-button expand="block" (click)="onEditProfile()">
+        Editar Perfil
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        (click)="onLogout()"
+        color="medium"
+      >
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Cerrar Sesión
+      </ion-button>
+    </div>
+  </div>
 </ion-content>
