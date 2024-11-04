@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { ProfileService } from '../services/profile.service';
+import { LoadingController } from '@ionic/angular';
 import {
   IonHeader,
   IonToolbar,
@@ -64,6 +65,7 @@ export class RegistroPage implements OnInit {
     private loginService: LoginService,
     private profileService: ProfileService,
     private alertController: AlertController,
+    private loadingController: LoadingController,
     private router: Router
   ) {}
 
@@ -88,40 +90,29 @@ export class RegistroPage implements OnInit {
       campus: [null, Validators.required]
     }, { validator: this.checkPasswords });
 
-    console.log('Formulario inicializado:', this.registerForm);
 
-    this.registerForm.get('email')?.valueChanges.subscribe(value => {
-      console.log('Valor del email cambiado:', value);
-    });
   }
 
   checkPasswords(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-    
-    console.log('Validando contraseñas:', {
-      password,
-      confirmPassword,
-      coinciden: password === confirmPassword
-    });
 
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
   async register() {
-    console.log('Iniciando registro...');
-    
     if (this.registerForm.valid) {
+      const loading = await this.loadingController.create({
+        message: 'Registrando usuario...',
+        spinner: 'circular'
+      });
+      await loading.present();
+
       try {
         const formData = this.registerForm.value;
-        console.log('Datos del formulario:', formData);
-        
-        console.log('Intentando crear usuario en Firebase Auth...');
         const user = await this.loginService.register(formData.email, formData.password);
         
         if (user) {
-          console.log('Usuario creado exitosamente:', user);
-          
           const profileData = {
             uid: user.uid,
             email: user.email,
@@ -139,9 +130,8 @@ export class RegistroPage implements OnInit {
             avatar: 'assets/avatar-placeholder.jpg'
           };
           
-          console.log('Intentando guardar perfil:', profileData);
           await this.profileService.saveProfile(profileData);
-          console.log('Perfil guardado exitosamente');
+          await loading.dismiss();
 
           const alert = await this.alertController.create({
             header: 'Registro exitoso',
@@ -149,14 +139,14 @@ export class RegistroPage implements OnInit {
             buttons: [{
               text: 'OK',
               handler: () => {
-                this.router.navigate(['/login']);
+                this.router.navigate(['/login'], { replaceUrl: true });
               }
             }]
           });
           await alert.present();
         }
       } catch (error: any) {
-        console.error('Error completo:', error);
+        await loading.dismiss();
         let errorMessage = 'No se pudo crear la cuenta.';
         
         switch (error.code) {
@@ -177,11 +167,6 @@ export class RegistroPage implements OnInit {
         await this.presentAlert('Error', errorMessage);
       }
     } else {
-      console.log('Formulario inválido:', {
-        valores: this.registerForm.value,
-        errores: this.registerForm.errors,
-        estadoValidación: this.registerForm.status
-      });
       this.checkFormValidity();
     }
   }
@@ -278,7 +263,6 @@ export class RegistroPage implements OnInit {
 
   onEmailChange(event: any) {
     const value = event.target.value || event.detail.value;
-    console.log('Nuevo valor del email:', value);
     
     this.registerForm.patchValue({
       email: value
@@ -287,12 +271,6 @@ export class RegistroPage implements OnInit {
     // Marcar como tocado para que se muestren los errores
     this.registerForm.get('email')?.markAsTouched();
     
-    console.log('Estado actualizado del email:', {
-      valor: this.registerForm.get('email')?.value,
-      válido: this.registerForm.get('email')?.valid,
-      errores: this.registerForm.get('email')?.errors,
-      touched: this.registerForm.get('email')?.touched
-    });
   }
 
   updateEmail(email: string) {
