@@ -57,7 +57,9 @@ export class Tab3Page implements OnInit {
     program: 'Ing. Informática',
     campus: 'Campus Central - Edificio A',
     period: '2024-A',
-    career: 'Ingeniería Informática'
+    career: 'Ingeniería Informática',
+    createdAt: new Date(),
+    phone: ''
   };
 
   constructor(

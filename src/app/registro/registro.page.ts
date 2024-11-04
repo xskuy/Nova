@@ -110,31 +110,19 @@ export class RegistroPage implements OnInit {
 
   async register() {
     console.log('Iniciando registro...');
-    const emailControl = this.registerForm.get('email');
     
-    if (!emailControl?.value) {
-      emailControl?.markAsTouched();
-      await this.presentAlert('Error', 'Por favor, ingresa un email válido');
-      return;
-    }
-
-    if (!emailControl.valid) {
-      await this.presentAlert('Error', 'El formato del email no es válido');
-      return;
-    }
-
-    console.log('Intentando registrar...');
-    console.log('Estado del formulario:', this.registerForm.valid);
-    console.log('Valores a registrar:', this.registerForm.value);
-
     if (this.registerForm.valid) {
       try {
         const formData = this.registerForm.value;
         console.log('Datos del formulario:', formData);
+        
+        console.log('Intentando crear usuario en Firebase Auth...');
         const user = await this.loginService.register(formData.email, formData.password);
         
         if (user) {
-          await this.profileService.saveProfile({
+          console.log('Usuario creado exitosamente:', user);
+          
+          const profileData = {
             uid: user.uid,
             email: user.email,
             name: formData.name,
@@ -149,7 +137,11 @@ export class RegistroPage implements OnInit {
             period: '2024-A',
             createdAt: new Date(),
             avatar: 'assets/avatar-placeholder.jpg'
-          });
+          };
+          
+          console.log('Intentando guardar perfil:', profileData);
+          await this.profileService.saveProfile(profileData);
+          console.log('Perfil guardado exitosamente');
 
           const alert = await this.alertController.create({
             header: 'Registro exitoso',
@@ -164,7 +156,7 @@ export class RegistroPage implements OnInit {
           await alert.present();
         }
       } catch (error: any) {
-        console.error('Error en registro:', error);
+        console.error('Error completo:', error);
         let errorMessage = 'No se pudo crear la cuenta.';
         
         switch (error.code) {
