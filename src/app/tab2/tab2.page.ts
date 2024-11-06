@@ -4,11 +4,13 @@ import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint, CapacitorBarcodeScannerTypeHintALLOption } from '@capacitor/barcode-scanner';
 import { LogoutButtonComponent } from '../logout-button/logout-button.component';
 import { CommonModule } from '@angular/common';
+import { AsistenciaComponent } from '../asistencia/asistencia.component';
+import { AsistenciaService } from '../services/asistencia.service';
 
 @Component({
   selector: 'app-tab2',
   standalone: true,
-  imports: [IonicModule, LogoutButtonComponent,CommonModule],
+  imports: [IonicModule, LogoutButtonComponent,CommonModule , AsistenciaComponent],
   templateUrl: './tab2.page.html',
   styleUrls: ['./tab2.page.scss'],
 })
@@ -17,14 +19,18 @@ export class Tab2Page {
   result: string = '' 
   
 
-  constructor() {}
+  constructor(private asistenciaService: AsistenciaService) {}
 
   async scanQRCode(): Promise<void> {
     await BarcodeScanner.checkPermission({ force: true });
     const result = await CapacitorBarcodeScanner.scanBarcode({
       hint: CapacitorBarcodeScannerTypeHint.ALL
     });
-    this.result = result.ScanResult;
+    if (result && result.ScanResult) {
+      this.result = result.ScanResult;
+      this.asistenciaService.agregarRegistro(this.result)
+
+    }
   }
 
   clearResult() {
