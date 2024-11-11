@@ -70,4 +70,7 @@ testem.log
 Thumbs.db
 
 
-environments.ts
+
+# Ignorar archivos de ambiente
+src/environments/environment.prod.ts
+src/environments/environment.ts
