@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { LoginService } from '../services/login.service';
+import { ProfileService, UserProfile } from '../services/profile.service';
 import {
   IonHeader,
   IonToolbar,
@@ -46,37 +47,45 @@ import {
   ],
 })
 export class Tab1Page implements OnInit {
-  username: string | null = '';
+  userProfile: UserProfile | null = null;
   greeting: string = '';
 
-  constructor(private loginService: LoginService) {
+  constructor(
+    private loginService: LoginService,
+    private profileService: ProfileService
+  ) {
     this.updateGreeting();
   }
 
-  ngOnInit() {
-    const loggedUser = this.loginService.getCurrentUserValue();
-    this.username = loggedUser ? loggedUser.email : null;
+  async ngOnInit() {
+    await this.loadUserProfile();
     // Actualizar el saludo cada minuto
     setInterval(() => this.updateGreeting(), 1200000);
+  }
+
+  private async loadUserProfile() {
+    try {
+      console.log('Cargando perfil de usuario...');
+      this.userProfile = await this.profileService.getProfile();
+      console.log('Perfil cargado:', this.userProfile);
+    } catch (error) {
+      console.error('Error al cargar el perfil:', error);
+    }
   }
 
   private updateGreeting() {
     const hour = new Date().getHours();
     
     if (hour >= 5 && hour < 12) {
-      this.greeting = 'Good Morning';
+      this.greeting = 'Buenos días';
     } else if (hour >= 12 && hour < 18) {
-      this.greeting = 'Good Afternoon';
+      this.greeting = 'Buenas tardes';
     } else {
-      this.greeting = 'Good Night';
+      this.greeting = 'Buenas noches';
     }
   }
 
-  // Obtener solo el nombre del email (antes del @)
   getUserFirstName(): string {
-    if (this.username) {
-      return this.username.split('@')[0];
-    }
-    return '';
+    return this.userProfile?.name || 'Usuario';
   }
 }

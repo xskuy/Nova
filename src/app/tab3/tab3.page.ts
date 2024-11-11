@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { LoginService } from '../services/login.service';
 import { ProfileService, UserProfile } from '../services/profile.service';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { 
   IonContent, 
   IonHeader, 
@@ -65,7 +66,8 @@ export class Tab3Page implements OnInit {
   constructor(
     private loginService: LoginService,
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    private alertController: AlertController
   ) { }
 
   async ngOnInit() {
@@ -117,11 +119,32 @@ export class Tab3Page implements OnInit {
   }
 
   async onLogout() {
-    try {
-      await this.loginService.logout();
-      await this.router.navigate(['/login']);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+    const alert = await this.alertController.create({
+      header: 'Confirmar cierre de sesión',
+      message: '¿Estás seguro de que deseas cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            // Acción si el usuario cancela
+            console.log('Cierre de sesión cancelado');
+          }
+        },
+        {
+          text: 'Cerrar sesión',
+          handler: async () => {
+            try {
+              await this.loginService.logout();
+              await this.router.navigate(['/login']);
+            } catch (error) {
+              console.error('Error al cerrar sesión:', error);
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

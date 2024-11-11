@@ -101,6 +101,10 @@ export class RegistroPage implements OnInit {
   }
 
   async register() {
+    console.log('Iniciando proceso de registro');
+    console.log('Estado del formulario:', this.registerForm.valid);
+    console.log('Datos del formulario:', this.registerForm.value);
+
     if (this.registerForm.valid) {
       const loading = await this.loadingController.create({
         message: 'Registrando usuario...',
@@ -109,10 +113,18 @@ export class RegistroPage implements OnInit {
       await loading.present();
 
       try {
+        console.log('Intentando crear usuario con Firebase');
         const formData = this.registerForm.value;
+        console.log('Datos para registro:', {
+          email: formData.email,
+          passwordLength: formData.password?.length
+        });
+
         const user = await this.loginService.register(formData.email, formData.password);
+        console.log('Respuesta de Firebase Auth:', user);
         
         if (user) {
+          console.log('Usuario creado exitosamente, preparando datos de perfil');
           const profileData = {
             uid: user.uid,
             email: user.email,
@@ -130,7 +142,10 @@ export class RegistroPage implements OnInit {
             avatar: 'assets/avatar-placeholder.jpg'
           };
           
+          console.log('Intentando guardar perfil:', profileData);
           await this.profileService.saveProfile(profileData);
+          console.log('Perfil guardado exitosamente');
+          
           await loading.dismiss();
 
           const alert = await this.alertController.create({
@@ -146,6 +161,10 @@ export class RegistroPage implements OnInit {
           await alert.present();
         }
       } catch (error: any) {
+        console.error('Error durante el registro:', error);
+        console.error('Código de error:', error.code);
+        console.error('Mensaje de error:', error.message);
+        
         await loading.dismiss();
         let errorMessage = 'No se pudo crear la cuenta.';
         
@@ -162,11 +181,22 @@ export class RegistroPage implements OnInit {
           case 'auth/weak-password':
             errorMessage = 'La contraseña es demasiado débil.';
             break;
+          default:
+            errorMessage = `Error: ${error.message}`;
+            break;
         }
         
+        console.log('Mostrando alerta de error:', errorMessage);
         await this.presentAlert('Error', errorMessage);
       }
     } else {
+      console.log('Formulario inválido');
+      console.log('Errores del formulario:', this.registerForm.errors);
+      console.log('Estado de los controles:', Object.keys(this.registerForm.controls).map(key => ({
+        campo: key,
+        errores: this.registerForm.get(key)?.errors,
+        valor: this.registerForm.get(key)?.value
+      })));
       this.checkFormValidity();
     }
   }
