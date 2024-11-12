@@ -1,0 +1,266 @@
+{
+  "version": "0.0.1",
+  "name": "Nova",
+  "dependencies": {
+    "@angular-devkit/build-angular": {
+      "version": "18.2.11",
+      "resolved": "https://registry.npmjs.org/@angular-devkit/build-angular/-/build-angular-18.2.11.tgz",
+      "overridden": false
+    },
+    "@angular-eslint/builder": {
+      "version": "18.4.0",
+      "resolved": "https://registry.npmjs.org/@angular-eslint/builder/-/builder-18.4.0.tgz",
+      "overridden": false
+    },
+    "@angular-eslint/eslint-plugin-template": {
+      "version": "18.4.0",
+      "resolved": "https://registry.npmjs.org/@angular-eslint/eslint-plugin-template/-/eslint-plugin-template-18.4.0.tgz",
+      "overridden": false
+    },
+    "@angular-eslint/eslint-plugin": {
+      "version": "18.4.0",
+      "resolved": "https://registry.npmjs.org/@angular-eslint/eslint-plugin/-/eslint-plugin-18.4.0.tgz",
+      "overridden": false
+    },
+    "@angular-eslint/schematics": {
+      "version": "18.4.0",
+      "resolved": "https://registry.npmjs.org/@angular-eslint/schematics/-/schematics-18.4.0.tgz",
+      "overridden": false
+    },
+    "@angular-eslint/template-parser": {
+      "version": "18.4.0",
+      "resolved": "https://registry.npmjs.org/@angular-eslint/template-parser/-/template-parser-18.4.0.tgz",
+      "overridden": false
+    },
+    "@angular/animations": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/animations/-/animations-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/cli": {
+      "version": "18.2.2",
+      "resolved": "https://registry.npmjs.org/@angular/cli/-/cli-18.2.2.tgz",
+      "overridden": false
+    },
+    "@angular/common": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/common/-/common-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/compiler-cli": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/compiler-cli/-/compiler-cli-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/compiler": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/compiler/-/compiler-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/core": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/core/-/core-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/fire": {
+      "version": "18.0.1",
+      "resolved": "https://registry.npmjs.org/@angular/fire/-/fire-18.0.1.tgz",
+      "overridden": false
+    },
+    "@angular/forms": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/forms/-/forms-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/language-service": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/language-service/-/language-service-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/platform-browser-dynamic": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser-dynamic/-/platform-browser-dynamic-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/platform-browser": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/platform-browser/-/platform-browser-18.2.10.tgz",
+      "overridden": false
+    },
+    "@angular/router": {
+      "version": "18.2.10",
+      "resolved": "https://registry.npmjs.org/@angular/router/-/router-18.2.10.tgz",
+      "overridden": false
+    },
+    "@capacitor-community/barcode-scanner": {
+      "version": "4.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor-community/barcode-scanner/-/barcode-scanner-4.0.1.tgz",
+      "overridden": false
+    },
+    "@capacitor/app": {
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor/app/-/app-6.0.1.tgz",
+      "overridden": false
+    },
+    "@capacitor/barcode-scanner": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor/barcode-scanner/-/barcode-scanner-1.0.1.tgz",
+      "overridden": false
+    },
+    "@capacitor/camera": {
+      "version": "6.1.0",
+      "resolved": "https://registry.npmjs.org/@capacitor/camera/-/camera-6.1.0.tgz",
+      "overridden": false
+    },
+    "@capacitor/core": {
+      "version": "6.1.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/core/-/core-6.1.2.tgz",
+      "overridden": false
+    },
+    "@capacitor/haptics": {
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor/haptics/-/haptics-6.0.1.tgz",
+      "overridden": false
+    },
+    "@capacitor/ios": {
+      "version": "6.1.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/ios/-/ios-6.1.2.tgz",
+      "overridden": false
+    },
+    "@capacitor/keyboard": {
+      "version": "6.0.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-6.0.2.tgz",
+      "overridden": false
+    },
+    "@capacitor/status-bar": {
+      "version": "6.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-6.0.1.tgz",
+      "overridden": false
+    },
+    "@ionic-native/barcode-scanner": {
+      "version": "5.36.0",
+      "resolved": "https://registry.npmjs.org/@ionic-native/barcode-scanner/-/barcode-scanner-5.36.0.tgz",
+      "overridden": false
+    },
+    "@ionic-native/core": {
+      "version": "5.36.0",
+      "resolved": "https://registry.npmjs.org/@ionic-native/core/-/core-5.36.0.tgz",
+      "overridden": false
+    },
+    "@ionic/angular-toolkit": {
+      "version": "11.0.1",
+      "resolved": "https://registry.npmjs.org/@ionic/angular-toolkit/-/angular-toolkit-11.0.1.tgz",
+      "overridden": false
+    },
+    "@ionic/angular": {
+      "version": "8.3.4",
+      "resolved": "https://registry.npmjs.org/@ionic/angular/-/angular-8.3.4.tgz",
+      "overridden": false
+    },
+    "@types/jasmine": {
+      "version": "5.1.4",
+      "resolved": "https://registry.npmjs.org/@types/jasmine/-/jasmine-5.1.4.tgz",
+      "overridden": false
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "version": "6.21.0",
+      "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-6.21.0.tgz",
+      "overridden": false
+    },
+    "@typescript-eslint/parser": {
+      "version": "6.21.0",
+      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-6.21.0.tgz",
+      "overridden": false
+    },
+    "eslint-plugin-import": {
+      "version": "2.31.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-import/-/eslint-plugin-import-2.31.0.tgz",
+      "overridden": false
+    },
+    "eslint-plugin-jsdoc": {
+      "version": "48.11.0",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-48.11.0.tgz",
+      "overridden": false
+    },
+    "eslint-plugin-prefer-arrow": {
+      "version": "1.2.2",
+      "resolved": "https://registry.npmjs.org/eslint-plugin-prefer-arrow/-/eslint-plugin-prefer-arrow-1.2.2.tgz",
+      "overridden": false
+    },
+    "eslint": {
+      "version": "8.57.1",
+      "resolved": "https://registry.npmjs.org/eslint/-/eslint-8.57.1.tgz",
+      "overridden": false
+    },
+    "firebase": {
+      "version": "10.14.1",
+      "resolved": "https://registry.npmjs.org/firebase/-/firebase-10.14.1.tgz",
+      "overridden": false
+    },
+    "ionicons": {
+      "version": "7.4.0",
+      "resolved": "https://registry.npmjs.org/ionicons/-/ionicons-7.4.0.tgz",
+      "overridden": false
+    },
+    "jasmine-core": {
+      "version": "5.1.2",
+      "resolved": "https://registry.npmjs.org/jasmine-core/-/jasmine-core-5.1.2.tgz",
+      "overridden": false
+    },
+    "jasmine-spec-reporter": {
+      "version": "5.0.2",
+      "resolved": "https://registry.npmjs.org/jasmine-spec-reporter/-/jasmine-spec-reporter-5.0.2.tgz",
+      "overridden": false
+    },
+    "karma-chrome-launcher": {
+      "version": "3.2.0",
+      "resolved": "https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-3.2.0.tgz",
+      "overridden": false
+    },
+    "karma-coverage": {
+      "version": "2.2.1",
+      "resolved": "https://registry.npmjs.org/karma-coverage/-/karma-coverage-2.2.1.tgz",
+      "overridden": false
+    },
+    "karma-jasmine-html-reporter": {
+      "version": "2.1.0",
+      "resolved": "https://registry.npmjs.org/karma-jasmine-html-reporter/-/karma-jasmine-html-reporter-2.1.0.tgz",
+      "overridden": false
+    },
+    "karma-jasmine": {
+      "version": "5.1.0",
+      "resolved": "https://registry.npmjs.org/karma-jasmine/-/karma-jasmine-5.1.0.tgz",
+      "overridden": false
+    },
+    "karma": {
+      "version": "6.4.4",
+      "resolved": "https://registry.npmjs.org/karma/-/karma-6.4.4.tgz",
+      "overridden": false
+    },
+    "phonegap-plugin-barcodescanner": {
+      "version": "8.1.0",
+      "resolved": "https://registry.npmjs.org/phonegap-plugin-barcodescanner/-/phonegap-plugin-barcodescanner-8.1.0.tgz",
+      "overridden": false
+    },
+    "rxjs": {
+      "version": "7.8.1",
+      "resolved": "https://registry.npmjs.org/rxjs/-/rxjs-7.8.1.tgz",
+      "overridden": false
+    },
+    "tslib": {
+      "version": "2.8.1",
+      "resolved": "https://registry.npmjs.org/tslib/-/tslib-2.8.1.tgz",
+      "overridden": false
+    },
+    "typescript": {
+      "version": "5.4.5",
+      "resolved": "https://registry.npmjs.org/typescript/-/typescript-5.4.5.tgz",
+      "overridden": false
+    },
+    "zone.js": {
+      "version": "0.14.10",
+      "resolved": "https://registry.npmjs.org/zone.js/-/zone.js-0.14.10.tgz",
+      "overridden": false
+    }
+  }
+}
