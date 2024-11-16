@@ -10,7 +10,6 @@ import { LoginService } from '../services/login.service';
   imports: [
     IonicModule,       // Importa IonicModule para habilitar los componentes ion-*
     CommonModule 
-         // Importa CommonModule para directivas *ngIf y *ngFor
   ],
   templateUrl: './asistencia.component.html',
   styleUrls: ['./asistencia.component.scss']
@@ -19,6 +18,12 @@ export class AsistenciaComponent implements OnInit {
   registros: string[] = [];
   username: string = ''; 
   currentDate: string = '' ;
+  asignatura: string = ''; 
+  seccion: string = '';
+  sala: string = '';
+  fecha: string = '';
+  registrosProcesados: { asignatura: string; seccion: string; sala: string; fecha: string }[] = [];
+  
   
 
   constructor(
@@ -28,6 +33,7 @@ export class AsistenciaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, '0');
@@ -38,14 +44,22 @@ export class AsistenciaComponent implements OnInit {
     this.registros = this.asistenciaService.obtenerRegistros();
     this.username = loggedUser ? loggedUser.email : null;
     this.currentDate = `${hours}:${minutes} en la fecha de: ${day}-${month}-${year}`;
+    this.cargarRegistros();
+    
   }
+  
 
   getUserFirstName(): string {
     return this.username ? this.username.split('@')[0] : '';
   }
+  cargarRegistros(): void {
+    const registrosQR = this.asistenciaService.obtenerRegistros(); // Obtenemos las cadenas del servicio
+    this.registrosProcesados = registrosQR
+      .map((qr) => this.asistenciaService.procesarQRCode(qr)) // Procesamos cada registro QR
+      .filter((registro): registro is { asignatura: string; seccion: string; sala: string; fecha: string } => registro !== null); // Filtramos los registros no válidos
+  }
+  
   
 
-  
+
 }
-
-

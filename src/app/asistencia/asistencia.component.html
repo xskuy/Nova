@@ -8,14 +8,21 @@
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="registros.length > 0; else noRegistro">
+  <ion-card *ngIf="registrosProcesados.length > 0; else noRegistro">
     <ion-card-header>
       <ion-card-title>Lista de Asistencias</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let registro of registros">
-          <ion-label>Asistencia Marcada a las {{currentDate}} En la clase de: {{ registro }}</ion-label>
+        <!-- Itera sobre los registros procesados -->
+        <ion-item *ngFor="let registro of registrosProcesados">
+          <ion-label>
+            Asistencia Marcada a las {{ currentDate }} <br />
+            Asignatura: {{ registro.asignatura }} <br />
+            Sección: {{ registro.seccion }} <br />
+            Sala: {{ registro.sala }} <br />
+            Fecha: {{ registro.fecha }}
+          </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
