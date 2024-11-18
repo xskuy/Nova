@@ -1,4 +1,6 @@
+// biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
+// biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
 	FormGroup,
@@ -24,13 +26,22 @@ import {
 	IonAvatar,
 	IonText
 } from "@ionic/angular/standalone";
+// biome-ignore lint/style/useImportType: <explanation>
 import { RouterModule, Router } from "@angular/router";
 // biome-ignore lint/style/useImportType: <explanation>
 import { User } from "../models/user";
 // biome-ignore lint/style/useImportType: <explanation>
 import { AlertController } from "@ionic/angular";
+// biome-ignore lint/style/useImportType: <explanation>
 import { LoginService } from "../services/login.service"; // Asegúrate de que el servicio tenga el método logout
 import { IonicModule } from "@ionic/angular";
+import { addIcons } from 'ionicons';
+import { 
+  mailOutline, 
+  lockClosedOutline, 
+  eyeOutline, 
+  eyeOffOutline 
+} from 'ionicons/icons';
 
 
 @Component({
@@ -59,13 +70,21 @@ import { IonicModule } from "@ionic/angular";
 
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  showPassword = false;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
     private loginService: LoginService
-  ) {}
+  ) {
+    addIcons({ 
+      mailOutline, 
+      lockClosedOutline, 
+      eyeOutline, 
+      eyeOffOutline 
+    });
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

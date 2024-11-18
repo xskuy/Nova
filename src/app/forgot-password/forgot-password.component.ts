@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+// biome-ignore lint/style/useImportType: <explanation>
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// biome-ignore lint/style/useImportType: <explanation>
 import { AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { RouterModule } from '@angular/router';
+// biome-ignore lint/style/useImportType: <explanation>
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -17,10 +21,14 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
+    RouterModule,
   ],
 })
 export class ForgotPasswordComponent {
   forgotPasswordForm!: FormGroup;
+  loading = false;
+  submitted = false;
+  error = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,38 +42,25 @@ export class ForgotPasswordComponent {
 
   async submit() {
     if (this.forgotPasswordForm.valid) {
+      this.loading = true;
+      this.error = '';
       const email = this.forgotPasswordForm.value.email;
+      
       try {
-        console.log('Intentando enviar email de recuperación a:', email);
         await this.afAuth.sendPasswordResetEmail(email);
-        console.log('Email de recuperación enviado exitosamente');
-        this.presentAlert('Éxito', 'Se ha enviado un correo de recuperación a su dirección de email.');
-        // Opcional: redirigir al usuario a la página de login
-        // this.router.navigate(['/login']);
+        this.loading = false;
+        this.submitted = true;
       } catch (error: any) {
-        console.error('Error al enviar email de recuperación:', error);
-        let errorMessage = 'No se pudo enviar el correo de recuperación.';
+        this.loading = false;
         
-        // Mensajes de error más específicos
         if (error.code === 'auth/user-not-found') {
-          errorMessage = 'No existe una cuenta con este correo electrónico.';
+          this.error = 'No existe una cuenta con este correo electrónico.';
         } else if (error.code === 'auth/invalid-email') {
-          errorMessage = 'El formato del correo electrónico no es válido.';
+          this.error = 'El formato del correo electrónico no es válido.';
+        } else {
+          this.error = 'No se pudo enviar el correo de recuperación.';
         }
-        
-        this.presentAlert('Error', errorMessage);
       }
-    } else {
-      this.presentAlert('Error', 'Por favor, ingrese un email válido.');
     }
-  }
-
-  async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
-      header,
-      message,
-      buttons: ['OK']
-    });
-    await alert.present();
   }
 }

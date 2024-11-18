@@ -1,79 +1,43 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-avatar slot="start">
-      <img
-        class="avatar-icon"
-        alt="Silhouette of a person's head"
-        src="https://ionicframework.com/docs/img/demos/avatar.svg"
-      />
-    </ion-avatar>
-    <ion-title class="welcome-title">Login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <div class="login-container">
     <div class="login-box">
+      <h1>Bienvenido</h1>
+
       <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <ion-item class="input-item">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input
-            type="email"
-            fill="solid"
-            formControlName="email"
-          ></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['required']"
-        >
-          <p>El email es requerido</p>
-        </ion-text>
-        <ion-text
-          color="danger"
-          *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.errors?.['email']"
-        >
-          <p>Por favor, ingrese un email válido</p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Email</ion-label>
+          <div class="input-container">
+            <i class="ion-icon ion-mail-outline"></i>
+            <ion-input type="email" placeholder="correo@ejemplo.com" formControlName="email"
+              class="custom-input"></ion-input>
+          </div>
+        </div>
 
-        <ion-item class="input-item">
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input
-            type="password"
-            fill="solid"
-            formControlName="password"
-          ></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']"
-        >
-          <p>La contraseña es requerida</p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Contraseña</ion-label>
+          <div class="input-container">
+            <i class="ion-icon ion-lock-closed-outline"></i>
+            <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="********" formControlName="password"
+              class="custom-input"></ion-input>
+            <i class="ion-icon" [class.ion-eye-outline]="showPassword" [class.ion-eye-off-outline]="!showPassword"
+              (click)="showPassword = !showPassword" class="eye-icon"></i>
+          </div>
+        </div>
 
-        <ion-button
-          class="login-button"
-          expand="block"
-          type="submit"
-          [disabled]="!loginForm.valid"
-        >
+        <ion-button expand="block" type="submit" [disabled]="!loginForm.valid" class="login-button">
           Iniciar sesión
         </ion-button>
-        <ion-button
-          class="login-button"
-          expand="block"
-          routerLink="/registro"
-          fill="clear"
-        >
-          Registrarse
-        </ion-button>
-        <ion-button
-          class="forgot-button"
-          expand="block"
-          fill="clear"
-          routerLink="/forgot-password"
-        >
+
+        <a class="forgot-password" routerLink="/forgot-password">
           Olvidé mi contraseña
+        </a>
+
+        <div class="divider">
+          <span>O</span>
+        </div>
+
+        <ion-button expand="block" fill="outline" routerLink="/registro" class="register-button">
+          Registrarse
         </ion-button>
       </form>
     </div>
