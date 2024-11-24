@@ -6,7 +6,7 @@
 
 .header-gradient {
   height: 18rem;
-  background: linear-gradient(to bottom, rgba(124, 58, 237, 0.5), transparent);
+  background: linear-gradient(to bottom, rgba(88, 28, 135, 0.5), transparent);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,21 +105,21 @@
     }
     
     &:first-child {
-      --background: var(--primary-color);
+      --background: #9333ea;
       margin-bottom: 1.5rem;
       
       &:hover {
-        --background: var(--primary-hover);
+        --background: #8b28e6;
       }
     }
     
     &[fill="outline"] {
       --border-color: var(--border-color);
-      --background: var(--input-background);
+      --background: #111827;
       margin-bottom: 2rem;
       
       &:hover {
-        --background: var(--card-background);
+        --background: #1a2438;
       }
     }
   }
