@@ -1,6 +1,12 @@
-<ion-content [fullscreen]="true" class="ion-padding">
+<ion-content [fullscreen]="true">
+  <div class="header-gradient"></div>
   <div class="login-container">
     <div class="login-box">
+      <a routerLink="/welcome" class="back-link">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Volver
+      </a>
+
       <h1>Bienvenido</h1>
 
       <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -8,8 +14,12 @@
           <ion-label>Email</ion-label>
           <div class="input-container">
             <i class="ion-icon ion-mail-outline"></i>
-            <ion-input type="email" placeholder="correo@ejemplo.com" formControlName="email"
-              class="custom-input"></ion-input>
+            <ion-input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              formControlName="email"
+              class="custom-input"
+            ></ion-input>
           </div>
         </div>
 
@@ -17,28 +27,34 @@
           <ion-label>Contraseña</ion-label>
           <div class="input-container">
             <i class="ion-icon ion-lock-closed-outline"></i>
-            <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="********" formControlName="password"
-              class="custom-input"></ion-input>
-            <i class="ion-icon" [class.ion-eye-outline]="showPassword" [class.ion-eye-off-outline]="!showPassword"
-              (click)="showPassword = !showPassword" class="eye-icon"></i>
+            <ion-input
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="********"
+              formControlName="password"
+              class="custom-input"
+            ></ion-input>
+            <i
+              class="ion-icon"
+              [class.ion-eye-outline]="showPassword"
+              [class.ion-eye-off-outline]="!showPassword"
+              (click)="showPassword = !showPassword"
+              class="eye-icon"
+            ></i>
           </div>
         </div>
 
-        <ion-button expand="block" type="submit" [disabled]="!loginForm.valid" class="login-button">
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="!loginForm.valid"
+          class="login-button"
+        >
           Iniciar sesión
         </ion-button>
 
         <a class="forgot-password" routerLink="/forgot-password">
           Olvidé mi contraseña
         </a>
-
-        <div class="divider">
-          <span>O</span>
-        </div>
-
-        <ion-button expand="block" fill="outline" routerLink="/registro" class="register-button">
-          Registrarse
-        </ion-button>
       </form>
     </div>
   </div>

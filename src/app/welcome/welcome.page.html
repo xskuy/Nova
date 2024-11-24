@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true">
+  <div class="welcome-container">
+    <!-- Header con gradiente -->
+    <div class="header-gradient">
+      <div class="header-content">
+        <div class="icon-container">
+          <ion-icon name="school-outline"></ion-icon>
+        </div>
+        <h1>DuocUC App</h1>
+        <p>Tu portal académico personal</p>
+      </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+      <!-- Mensaje de bienvenida -->
+      <div class="welcome-message">
+        <h2>¡Bienvenido!</h2>
+        <p>Accede a toda tu información académica desde un solo lugar</p>
+      </div>
+
+      <!-- Características principales -->
+      <div class="features">
+        <div class="feature-card">
+          <h3>📚 Todo tu contenido académico</h3>
+          <p>Accede a tus cursos, notas y materiales desde cualquier lugar</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>📅 Gestión de horarios</h3>
+          <p>Mantén un seguimiento de tus clases y actividades</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>📱 Siempre conectado</h3>
+          <p>Recibe notificaciones importantes y mantente al día</p>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="action-buttons">
+        <div class="main-buttons">
+          <ion-button
+            expand="block"
+            (click)="navigateToLogin()"
+            class="login-button"
+          >
+            <span>Iniciar Sesión</span>
+          </ion-button>
+
+          <ion-button
+            expand="block"
+            fill="outline"
+            (click)="navigateToRegister()"
+          >
+            <span>Crear Cuenta</span>
+          </ion-button>
+        </div>
+
+        <a href="#" class="more-info"> Más información sobre DuocUC </a>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>¿Necesitas ayuda? Contacta a soporte</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

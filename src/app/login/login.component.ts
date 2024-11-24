@@ -40,7 +40,8 @@ import {
   mailOutline, 
   lockClosedOutline, 
   eyeOutline, 
-  eyeOffOutline 
+  eyeOffOutline,
+  arrowBackOutline 
 } from 'ionicons/icons';
 
 
@@ -63,6 +64,7 @@ import {
     IonLabel,
     IonInput,
     IonButton,
+    IonIcon,
     IonAvatar,
     IonText
   ],
@@ -82,7 +84,8 @@ export class LoginComponent implements OnInit {
       mailOutline, 
       lockClosedOutline, 
       eyeOutline, 
-      eyeOffOutline 
+      eyeOffOutline,
+      arrowBackOutline 
     });
   }
 
