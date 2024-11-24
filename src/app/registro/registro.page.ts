@@ -23,7 +23,9 @@ import {
   IonItemGroup,
   IonSelect,
   IonSelectOption,
-  IonButtons
+  IonButtons,
+  IonIcon,
+  IonNote
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -50,7 +52,9 @@ import {
     IonItemGroup,
     IonSelect,
     IonSelectOption,
-    IonButtons
+    IonButtons,
+    IonIcon,
+    IonNote
   ]
 })
 export class RegistroPage implements OnInit {
@@ -59,6 +63,8 @@ export class RegistroPage implements OnInit {
   careersList = ['Ingeniería Informática', 'Ingeniería Civil', 'Ingeniería Industrial'];
   semestersList = ['1° Semestre', '2° Semestre', '3° Semestre', '4° Semestre', '5° Semestre', '6° Semestre'];
   generatedStudentId: string = '';
+  currentStep = 1;
+  totalSteps = 3;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -154,7 +160,11 @@ export class RegistroPage implements OnInit {
             buttons: [{
               text: 'OK',
               handler: () => {
-                this.router.navigate(['/login'], { replaceUrl: true });
+                this.router.navigate(['/login'], { 
+                  replaceUrl: true
+                }).then(() => {
+                  this.resetForm();
+                });
               }
             }]
           });
@@ -320,5 +330,84 @@ export class RegistroPage implements OnInit {
       control?.setErrors(null);
       control?.markAsUntouched();
     });
+  }
+
+  nextStep() {
+    if (this.currentStep < this.totalSteps) {
+      // Validar campos según el paso actual
+      if (this.validateCurrentStep()) {
+        this.currentStep++;
+      } else {
+        this.showStepError();
+      }
+    }
+  }
+
+  validateCurrentStep(): boolean {
+    const controls = this.registerForm.controls;
+    
+    switch (this.currentStep) {
+      case 1:
+        // Validar campos del paso 1
+        return controls['email'].valid && 
+               controls['password'].valid && 
+               controls['confirmPassword'].valid &&
+               !this.registerForm.errors?.['passwordMismatch'];
+      
+      case 2:
+        // Validar campos del paso 2
+        return controls['name'].valid && 
+               controls['lastName'].valid && 
+               controls['age'].valid &&
+               (controls['phone'].value === '' || controls['phone'].valid);
+      
+      case 3:
+        // Validar campos del paso 3
+        return controls['career'].valid && 
+               controls['semester'].valid && 
+               controls['campus'].valid;
+      
+      default:
+        return false;
+    }
+  }
+
+  async showStepError() {
+    let errorMessage = 'Por favor completa todos los campos requeridos:';
+    const controls = this.registerForm.controls;
+
+    switch (this.currentStep) {
+      case 1:
+        if (!controls['email'].valid) errorMessage += '\n- Email';
+        if (!controls['password'].valid) errorMessage += '\n- Contraseña';
+        if (!controls['confirmPassword'].valid) errorMessage += '\n- Confirmar Contraseña';
+        if (this.registerForm.errors?.['passwordMismatch']) {
+          errorMessage += '\n- Las contraseñas no coinciden';
+        }
+        break;
+      
+      case 2:
+        if (!controls['name'].valid) errorMessage += '\n- Nombre';
+        if (!controls['lastName'].valid) errorMessage += '\n- Apellido';
+        if (!controls['age'].valid) errorMessage += '\n- Edad';
+        if (controls['phone'].value && !controls['phone'].valid) {
+          errorMessage += '\n- Teléfono (formato inválido)';
+        }
+        break;
+      
+      case 3:
+        if (!controls['career'].valid) errorMessage += '\n- Carrera';
+        if (!controls['semester'].valid) errorMessage += '\n- Semestre';
+        if (!controls['campus'].valid) errorMessage += '\n- Campus';
+        break;
+    }
+
+    await this.presentAlert('Campos Incompletos', errorMessage);
+  }
+
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
 }

@@ -2,47 +2,61 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
+  background-color: black;
+  
+  // Banner gradient
+  .banner {
+    height: 8rem; // 32px
+    background: linear-gradient(to right, #4c1d95, #4c1d95, #312e81); // purple-900, purple-800, indigo-900
+  }
   
   .avatar-section {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 24px;
+    margin-top: -2.5rem;
+    margin-bottom: 1.5rem;
     
     .avatar-container {
       position: relative;
-      margin-bottom: 16px;
       
       ion-avatar {
-        width: 120px;
-        height: 120px;
-        border: 3px solid var(--ion-color-primary);
+        width: 6rem;
+        height: 6rem;
+        border: 4px solid black;
+        background-color: #1f2937; // gray-800
       }
       
       .camera-button {
         position: absolute;
         bottom: 0;
         right: 0;
-        --background: var(--ion-color-primary);
+        --background: #1f2937;
+        --color: white;
+        
+        &:hover {
+          --background: #374151; // gray-700
+        }
       }
     }
     
     h1 {
-      margin: 8px 0;
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--ion-color-dark);
+      margin: 0.25rem 0;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
     }
     
     .email-container {
       display: flex;
       align-items: center;
-      gap: 8px;
-      color: var(--ion-color-medium);
+      gap: 0.5rem;
+      color: #9ca3af; // gray-400
       
       ion-icon {
-        font-size: 16px;
+        font-size: 1rem;
       }
       
       p {
@@ -51,71 +65,109 @@
     }
   }
   
+  // Academic Info Card
   ion-card {
-    margin: 0 0 16px 0;
+    margin: 0 1rem 1rem;
+    --background: #111827; // gray-900
+    border-radius: 0.5rem;
     
     .academic-info {
       display: flex;
-      justify-content: space-around;
-      padding: 8px 0;
+      justify-content: space-between;
+      padding: 1rem;
       
       .info-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
+        flex: 1;
+        text-align: center;
+        padding: 0 0.5rem;
+        
+        &:first-child {
+          border-right: 1px solid #1f2937; // gray-800
+        }
         
         ion-icon {
-          font-size: 24px;
-          color: var(--ion-color-primary);
+          display: none;
         }
         
         span {
-          color: var(--ion-color-medium);
-          font-size: 14px;
+          display: block;
+          
+          &:first-child {
+            color: #9ca3af; // gray-400
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+          }
+          
+          &:last-child {
+            color: white;
+            font-weight: 600;
+          }
         }
       }
     }
   }
   
+  // Detail List
   ion-list {
     background: transparent;
-    padding: 0;
+    padding: 0 1rem;
     
     ion-item {
-      --padding-start: 0;
-      --inner-padding-end: 0;
-      margin-bottom: 8px;
-      --background: transparent;
+      --background: #111827; // gray-900
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+      --padding-start: 1rem;
+      --padding-end: 1rem;
+      --padding-top: 0.75rem;
+      --padding-bottom: 0.75rem;
       
       ion-icon {
-        color: var(--ion-color-primary);
-        margin-right: 16px;
+        color: #9ca3af; // gray-400
+        margin-right: 0.75rem;
       }
       
       ion-label {
         h2 {
-          font-size: 14px;
-          font-weight: 500;
-          margin-bottom: 4px;
+          font-size: 0.875rem;
+          color: #9ca3af; // gray-400
+          margin-bottom: 0.25rem;
         }
         
         p {
-          color: var(--ion-color-medium);
+          color: #d1d5db; // gray-300
+          font-weight: 500;
         }
       }
     }
   }
   
+  // Buttons
   .button-container {
-    margin-top: auto;
-    padding-top: 24px;
+    padding: 2rem 1rem;
     
     ion-button {
-      margin-bottom: 8px;
+      margin-bottom: 0.75rem;
+      height: 3rem;
+      
+      &:first-child {
+        --background: #111827; // gray-900
+        --color: white;
+        
+        &:hover {
+          --background: #1f2937; // gray-800
+        }
+      }
       
       &:last-child {
-        margin-bottom: 0;
+        --background: transparent;
+        --color: #d1d5db; // gray-300
+        --border-color: #1f2937; // gray-800
+        --border-style: solid;
+        --border-width: 1px;
+        
+        &:hover {
+          --background: #111827; // gray-900
+        }
       }
     }
   }

@@ -8,219 +8,181 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <div class="registro-container">
+  <div class="register-container">
+    <!-- Header -->
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-info">
+        <span>Paso {{currentStep}} de {{totalSteps}}</span>
+      </div>
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          [style.width.%]="(currentStep / totalSteps) * 100"
+        ></div>
+      </div>
+    </div>
+
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-      <!-- Datos de Autenticación -->
-      <ion-item-group>
-        <ion-item-divider>
-          <ion-label>Datos de Acceso</ion-label>
-        </ion-item-divider>
+      <!-- Step 1: Datos de Acceso -->
+      <div *ngIf="currentStep === 1">
+        <div class="step-header">
+          <h2>Datos de Acceso</h2>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Email</ion-label>
-          <ion-input
-            type="email"
-            formControlName="email"
-            [ngModel]="registerForm.get('email')?.value"
-            (ionInput)="onEmailChange($event)"
-            required
-          ></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors"
-        >
-          <p *ngIf="registerForm.get('email')?.errors?.['required']">
-            El email es requerido
-          </p>
-          <p *ngIf="registerForm.get('email')?.errors?.['email']">
-            El formato del email no es válido
-          </p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Email</ion-label>
+          <div class="input-container">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors"
-        >
-          <p *ngIf="registerForm.get('password')?.errors?.['required']">
-            La contraseña es requerida
-          </p>
-          <p *ngIf="registerForm.get('password')?.errors?.['minlength']">
-            La contraseña debe tener al menos 6 caracteres
-          </p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Contraseña</ion-label>
+          <div class="input-container">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Confirmar Contraseña</ion-label>
-          <ion-input
-            type="password"
-            formControlName="confirmPassword"
-          ></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('confirmPassword')?.touched && (registerForm.get('confirmPassword')?.errors || registerForm.errors?.['passwordMismatch'])"
-        >
-          <p *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
-            Confirma tu contraseña
-          </p>
-          <p *ngIf="registerForm.errors?.['passwordMismatch']">
-            Las contraseñas no coinciden
-          </p>
-        </ion-text>
-      </ion-item-group>
+        <div class="form-group">
+          <ion-label>Confirmar Contraseña</ion-label>
+          <div class="input-container">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input
+              type="password"
+              formControlName="confirmPassword"
+            ></ion-input>
+          </div>
+        </div>
+      </div>
 
-      <!-- Datos Personales -->
-      <ion-item-group>
-        <ion-item-divider>
-          <ion-label>Datos Personales</ion-label>
-        </ion-item-divider>
+      <!-- Step 2: Datos Personales -->
+      <div *ngIf="currentStep === 2">
+        <div class="step-header">
+          <h2>Datos Personales</h2>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input type="text" formControlName="name"></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.errors"
-        >
-          <p *ngIf="registerForm.get('name')?.errors?.['required']">
-            El nombre es requerido
-          </p>
-          <p *ngIf="registerForm.get('name')?.errors?.['minlength']">
-            El nombre debe tener al menos 2 caracteres
-          </p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Nombre</ion-label>
+          <div class="input-container">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Apellido</ion-label>
-          <ion-input type="text" formControlName="lastName"></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors"
-        >
-          <p *ngIf="registerForm.get('lastName')?.errors?.['required']">
-            El apellido es requerido
-          </p>
-          <p *ngIf="registerForm.get('lastName')?.errors?.['minlength']">
-            El apellido debe tener al menos 2 caracteres
-          </p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Apellido</ion-label>
+          <div class="input-container">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Edad</ion-label>
-          <ion-input type="number" formControlName="age"></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('age')?.touched && registerForm.get('age')?.errors"
-        >
-          <p *ngIf="registerForm.get('age')?.errors?.['required']">
-            La edad es requerida
-          </p>
-          <p *ngIf="registerForm.get('age')?.errors?.['min']">
-            La edad mínima es 16 años
-          </p>
-          <p *ngIf="registerForm.get('age')?.errors?.['max']">
-            La edad máxima es 99 años
-          </p>
-        </ion-text>
+        <div class="form-group">
+          <ion-label>Edad</ion-label>
+          <div class="input-container">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-input type="number" formControlName="age"></ion-input>
+          </div>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Teléfono (opcional)</ion-label>
-          <ion-input type="tel" formControlName="phone"></ion-input>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.errors?.['pattern']"
-        >
-          <p>El teléfono debe tener 9 dígitos</p>
-        </ion-text>
-      </ion-item-group>
+        <div class="form-group">
+          <ion-label>Teléfono (opcional)</ion-label>
+          <div class="input-container">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-input type="tel" formControlName="phone"></ion-input>
+          </div>
+        </div>
+      </div>
 
-      <!-- Datos Académicos -->
-      <ion-item-group class="ion-margin-bottom">
-        <ion-item-divider>
-          <ion-label>Datos Académicos</ion-label>
-        </ion-item-divider>
+      <!-- Step 3: Datos Académicos -->
+      <div *ngIf="currentStep === 3">
+        <div class="step-header">
+          <h2>Datos Académicos</h2>
+        </div>
 
-        <ion-item>
-          <ion-label position="stacked">Tu Matrícula</ion-label>
-          <ion-input readonly [value]="generatedStudentId"></ion-input>
+        <div class="form-group">
+          <ion-label>Matrícula</ion-label>
+          <div class="input-container">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-input [value]="generatedStudentId" readonly></ion-input>
+          </div>
           <ion-note>Esta matrícula se generó automáticamente</ion-note>
-        </ion-item>
+        </div>
 
-        <ion-item>
-          <ion-label position="floating">Carrera</ion-label>
-          <ion-select formControlName="career">
-            <ion-select-option
-              *ngFor="let career of careersList"
-              [value]="career"
-              >{{career}}</ion-select-option
-            >
-          </ion-select>
-        </ion-item>
-        <ion-text
-          color="danger"
-          *ngIf="registerForm.get('career')?.touched && registerForm.get('career')?.errors?.['required']"
+        <div class="form-group">
+          <ion-label>Carrera</ion-label>
+          <div class="input-container">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-select formControlName="career" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let career of careersList"
+                [value]="career"
+              >
+                {{career}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <!-- Agregar campo Semestre -->
+        <div class="form-group">
+          <ion-label>Semestre</ion-label>
+          <div class="input-container">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-select formControlName="semester" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let semester of semestersList"
+                [value]="semester"
+              >
+                {{semester}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <!-- Agregar campo Campus -->
+        <div class="form-group">
+          <ion-label>Campus</ion-label>
+          <div class="input-container">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-select formControlName="campus" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let campus of campusList"
+                [value]="campus"
+              >
+                {{campus}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <ion-button
+          *ngIf="currentStep > 1"
+          fill="outline"
+          (click)="previousStep()"
         >
-          <p>Selecciona una carrera</p>
-        </ion-text>
+          Anterior
+        </ion-button>
 
-        <ion-item>
-          <ion-label position="floating">Semestre</ion-label>
-          <ion-select formControlName="semester">
-            <ion-select-option
-              *ngFor="let semester of semestersList"
-              [value]="semester"
-            >
-              {{semester}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
+        <ion-button *ngIf="currentStep < totalSteps" (click)="nextStep()">
+          Siguiente
+        </ion-button>
 
-        <ion-item>
-          <ion-label position="floating">Campus</ion-label>
-          <ion-select formControlName="campus">
-            <ion-select-option
-              *ngFor="let campus of campusList"
-              [value]="campus"
-            >
-              {{campus}}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-      </ion-item-group>
-
-      <ion-button
-        expand="block"
-        type="submit"
-        [disabled]="!registerForm.valid"
-        class="ion-margin-bottom"
-        (click)="checkFormValidity()"
-      >
-        Registrarse
-      </ion-button>
-
-      <!-- Agregar un botón adicional para debug -->
-      <ion-button
-        expand="block"
-        fill="clear"
-        (click)="checkFormValidity()"
-        class="ion-margin-bottom"
-      >
-        Verificar Campos
-      </ion-button>
-
-      <ion-text color="danger" *ngIf="!registerForm.valid" class="ion-padding">
-        <p>Estado del formulario: {{registerForm.status}}</p>
-        <p>Por favor, completa todos los campos correctamente.</p>
-      </ion-text>
+        <ion-button
+          *ngIf="currentStep === totalSteps"
+          type="submit"
+          [disabled]="!registerForm.valid"
+        >
+          Completar Registro
+        </ion-button>
+      </div>
     </form>
   </div>
 </ion-content>
