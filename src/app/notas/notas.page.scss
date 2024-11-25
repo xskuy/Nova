@@ -1,0 +1,13 @@
+ion-card-header {
+    display: flex; /* Alinea elementos en una fila */
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: space-between; /* Separa el título del botón */
+  }
+  
+  ion-button {
+    --background: var(--ion-color-primary); /* Fondo visible */
+    --color: white; /* Color del texto */
+    margin-left: auto; /* Mueve el botón al extremo derecho */
+  }
+  
+  

@@ -7,6 +7,7 @@ export const routes: Routes = [
   {
     path: '',
     redirectTo: 'welcome',
+    
     pathMatch: 'full'
   },
   {
@@ -36,6 +37,10 @@ export const routes: Routes = [
   {
     path: 'cursos',
     loadComponent: () => import('./cursos/cursos.page').then(m => m.CursosPage)
+  },
+  {
+    path: 'notas',
+    loadComponent: () => import('./notas/notas.page').then(m => m.NotasPage)
   },
   {
     path: 'tabs',
