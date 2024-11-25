@@ -1,7 +1,6 @@
 import { IonicModule, AlertController } from '@ionic/angular';
 import { Component } from '@angular/core';
-import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
-import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from '@capacitor/barcode-scanner';
+import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { LogoutButtonComponent } from '../logout-button/logout-button.component';
 import { CommonModule } from '@angular/common';
 import { AsistenciaComponent } from '../asistencia/asistencia.component';
@@ -23,35 +22,41 @@ export class Tab2Page {
   ) {}
 
   async scanQRCode(): Promise<void> {
-    await BarcodeScanner.checkPermission({ force: true });
-    const result = await CapacitorBarcodeScanner.scanBarcode({
-      hint: CapacitorBarcodeScannerTypeHint.ALL,
-    });
-  
-    if (result && result.ScanResult) {
-      this.result = result.ScanResult.trim();
-  
-      // Validar el formato del QR escaneado
-      if (this.validateFormat(this.result)) {
-        this.asistenciaService.agregarRegistro(this.result); // Agregar al servicio
+    try {
+      // Pedir permiso primero
+      const granted = await BarcodeScanner.requestPermissions();
+      
+      if (granted.camera === 'granted') {
+        // Iniciar el escaneo
+        const { barcodes } = await BarcodeScanner.scan();
+        
+        if (barcodes.length > 0) {
+          this.result = barcodes[0].rawValue.trim();
+          
+          if (this.validateFormat(this.result)) {
+            this.asistenciaService.agregarRegistro(this.result);
+          } else {
+            await this.showAlert('El formato del código QR no es válido');
+          }
+        }
       } else {
-        await this.showAlert('El formato del código QR no es válido');
+        await this.showAlert('Se necesitan permisos de cámara para escanear');
       }
+    } catch (error) {
+      console.error('Error scanning QR code:', error);
+      await this.showAlert('Error al escanear el código QR');
     }
   }
 
   clearResult() {
-    this.result = ''; // Limpiar el resultado para ocultar el contenedor
+    this.result = '';
   }
 
-  // Método para validar el formato <ASIGNATURA>|<SECCION>|<SALA>|<FECHA> en formato AAAAMMDD
   private validateFormat(text: string): boolean {
-    // Nueva expresión regular para <ASIGNATURA>|<SECCION>|<SALA>|<FECHA> en formato AAAAMMDD
     const pattern = /^[A-Z0-9]+?\|[A-Z0-9]+?\|[A-Z0-9]+?\|\d{8}$/;
     return pattern.test(text);
   }
 
-  // Método para mostrar alerta en caso de error de formato
   private async showAlert(message: string) {
     const alert = await this.alertController.create({
       header: 'Error',

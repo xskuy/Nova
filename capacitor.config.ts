@@ -22,7 +22,16 @@ const config: CapacitorConfig = {
     FirebaseAuthentication: {
       skipNativeAuth: false,
       providers: ['apple.com', 'google.com']
+    },
+    BarcodeScanner: {
+      permissions: true
+    },
+    Camera: {
+      permissions: true
     }
+  },
+  android: {
+    allowMixedContent: true
   }
 };
 

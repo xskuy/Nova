@@ -5,20 +5,6 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Button to initiate QR scan -->
-  <ion-button expand="block" (click)="scanQRCode()" size="large">
-    <ion-icon slot="start" name="qr-code"></ion-icon>
-    Escanear QR
-  </ion-button>
-
-
-  <!-- Display the result of the QR scan -->
-  <div *ngIf="result" class="result-container">
-    <h2>Resultado del Escaneo</h2>
-    <p>{{ result }}</p>
-    <ion-button color="primary" (click)="clearResult()">Limpiar Resultado</ion-button>
-  </div>
+  <ion-button (click)="scanQRCode()">Escanear QR</ion-button>
+  <div *ngIf="result">Resultado: {{result}}</div>
 </ion-content>
-
-
-
