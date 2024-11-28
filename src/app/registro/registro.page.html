@@ -1,0 +1,188 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="register-container">
+    <!-- Header -->
+
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-info">
+        <span>Paso {{currentStep}} de {{totalSteps}}</span>
+      </div>
+      <div class="progress-bar">
+        <div
+          class="progress-fill"
+          [style.width.%]="(currentStep / totalSteps) * 100"
+        ></div>
+      </div>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <!-- Step 1: Datos de Acceso -->
+      <div *ngIf="currentStep === 1">
+        <div class="step-header">
+          <h2>Datos de Acceso</h2>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Email</ion-label>
+          <div class="input-container">
+            <ion-icon name="mail-outline"></ion-icon>
+            <ion-input type="email" formControlName="email"></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Contraseña</ion-label>
+          <div class="input-container">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Confirmar Contraseña</ion-label>
+          <div class="input-container">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <ion-input
+              type="password"
+              formControlName="confirmPassword"
+            ></ion-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Datos Personales -->
+      <div *ngIf="currentStep === 2">
+        <div class="step-header">
+          <h2>Datos Personales</h2>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Nombre</ion-label>
+          <div class="input-container">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input type="text" formControlName="name"></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Apellido</ion-label>
+          <div class="input-container">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-input type="text" formControlName="lastName"></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Edad</ion-label>
+          <div class="input-container">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-input type="number" formControlName="age"></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Teléfono (opcional)</ion-label>
+          <div class="input-container">
+            <ion-icon name="call-outline"></ion-icon>
+            <ion-input type="tel" formControlName="phone"></ion-input>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Datos Académicos -->
+      <div *ngIf="currentStep === 3">
+        <div class="step-header">
+          <h2>Datos Académicos</h2>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Matrícula</ion-label>
+          <div class="input-container">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-input [value]="generatedStudentId" readonly></ion-input>
+          </div>
+          <ion-note>Esta matrícula se generó automáticamente</ion-note>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Carrera</ion-label>
+          <div class="input-container">
+            <ion-icon name="school-outline"></ion-icon>
+            <ion-select formControlName="career" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let career of careersList"
+                [value]="career"
+              >
+                {{career}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <!-- Agregar campo Semestre -->
+        <div class="form-group">
+          <ion-label>Semestre</ion-label>
+          <div class="input-container">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-select formControlName="semester" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let semester of semestersList"
+                [value]="semester"
+              >
+                {{semester}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+
+        <!-- Agregar campo Campus -->
+        <div class="form-group">
+          <ion-label>Campus</ion-label>
+          <div class="input-container">
+            <ion-icon name="location-outline"></ion-icon>
+            <ion-select formControlName="campus" interface="action-sheet">
+              <ion-select-option
+                *ngFor="let campus of campusList"
+                [value]="campus"
+              >
+                {{campus}}
+              </ion-select-option>
+            </ion-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="navigation-buttons">
+        <ion-button
+          *ngIf="currentStep > 1"
+          fill="outline"
+          (click)="previousStep()"
+        >
+          Anterior
+        </ion-button>
+
+        <ion-button *ngIf="currentStep < totalSteps" (click)="nextStep()">
+          Siguiente
+        </ion-button>
+
+        <ion-button
+          *ngIf="currentStep === totalSteps"
+          type="submit"
+          [disabled]="!registerForm.valid"
+        >
+          Completar Registro
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</ion-content>

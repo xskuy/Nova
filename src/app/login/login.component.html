@@ -1,0 +1,61 @@
+<ion-content [fullscreen]="true">
+  <div class="header-gradient"></div>
+  <div class="login-container">
+    <div class="login-box">
+      <a routerLink="/welcome" class="back-link">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        Volver
+      </a>
+
+      <h1>Bienvenido</h1>
+
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="form-group">
+          <ion-label>Email</ion-label>
+          <div class="input-container">
+            <i class="ion-icon ion-mail-outline"></i>
+            <ion-input
+              type="email"
+              placeholder="correo@ejemplo.com"
+              formControlName="email"
+              class="custom-input"
+            ></ion-input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <ion-label>Contraseña</ion-label>
+          <div class="input-container">
+            <i class="ion-icon ion-lock-closed-outline"></i>
+            <ion-input
+              [type]="showPassword ? 'text' : 'password'"
+              placeholder="********"
+              formControlName="password"
+              class="custom-input"
+            ></ion-input>
+            <i
+              class="ion-icon"
+              [class.ion-eye-outline]="showPassword"
+              [class.ion-eye-off-outline]="!showPassword"
+              (click)="showPassword = !showPassword"
+              class="eye-icon"
+            ></i>
+          </div>
+        </div>
+
+        <ion-button
+          expand="block"
+          type="submit"
+          [disabled]="!loginForm.valid"
+          class="login-button"
+        >
+          Iniciar sesión
+        </ion-button>
+
+        <a class="forgot-password" routerLink="/forgot-password">
+          Olvidé mi contraseña
+        </a>
+      </form>
+    </div>
+  </div>
+</ion-content>

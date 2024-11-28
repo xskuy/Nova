@@ -1,0 +1,16 @@
+.duoc{
+  margin-left: 25%;
+}
+.small-card {
+    width: 80%;         /* Ajusta el ancho al 80% del contenedor */
+    max-width: 300px;   /* Limita el ancho máximo */
+    font-size: 0.9em;   /* Ajusta el tamaño de fuente para el contenido */
+    margin: auto;       /* Centra la tarjeta */
+    margin-top: 20px;
+    place-content: center;
+  }
+  .small-card img {
+    height: 150px;      /* Cambia la altura de la imagen si es necesario */
+    object-fit: cover;  /* Ajusta el recorte de la imagen */
+    max-width: 100%;
+  }

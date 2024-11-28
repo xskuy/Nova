@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <img alt="logo" class="duoc" height="40" src="assets/img/duoc.png" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngIf="registrosProcesados.length > 0; else noRegistro">
+    <ion-card-header>
+      <ion-card-title>Lista de Asistencias</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <!-- Itera sobre los registros procesados -->
+        <ion-item *ngFor="let registro of registrosProcesados">
+          <ion-label>
+            Asistencia Marcada a las {{ currentDate }} <br />
+            Asignatura: {{ registro.asignatura }} <br />
+            Sección: {{ registro.seccion }} <br />
+            Sala: {{ registro.sala }} <br />
+            Fecha: {{ registro.fecha }}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ng-template #noRegistro>
+    <ion-card>
+      <ion-card-content>
+        <ion-text color="medium">
+          <h2>No hay registros de asistencia.</h2>
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</ion-content>
