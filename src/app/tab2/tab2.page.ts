@@ -1,8 +1,9 @@
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { Component } from '@angular/core';
-import { BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
+import { CapacitorBarcodeScanner, CapacitorBarcodeScannerTypeHint } from '@capacitor/barcode-scanner';
 import { LogoutButtonComponent } from '../logout-button/logout-button.component';
 import { CommonModule } from '@angular/common';
+import { AlertController } from '@ionic/angular';
 import { AsistenciaComponent } from '../asistencia/asistencia.component';
 import { AsistenciaService } from '../services/asistencia.service';
 
@@ -14,37 +15,23 @@ import { AsistenciaService } from '../services/asistencia.service';
   styleUrls: ['./tab2.page.scss'],
 })
 export class Tab2Page {
-  result: string = '';
+
+  result: string = '' 
+  
 
   constructor(
     private asistenciaService: AsistenciaService,
-    private alertController: AlertController
+    public alertController: AlertController
   ) {}
 
   async scanQRCode(): Promise<void> {
-    try {
-      // Pedir permiso primero
-      const granted = await BarcodeScanner.requestPermissions();
-      
-      if (granted.camera === 'granted') {
-        // Iniciar el escaneo
-        const { barcodes } = await BarcodeScanner.scan();
-        
-        if (barcodes.length > 0) {
-          this.result = barcodes[0].rawValue.trim();
-          
-          if (this.validateFormat(this.result)) {
-            this.asistenciaService.agregarRegistro(this.result);
-          } else {
-            await this.showAlert('El formato del código QR no es válido');
-          }
-        }
-      } else {
-        await this.showAlert('Se necesitan permisos de cámara para escanear');
-      }
-    } catch (error) {
-      console.error('Error scanning QR code:', error);
-      await this.showAlert('Error al escanear el código QR');
+    const result = await CapacitorBarcodeScanner.scanBarcode({
+      hint: CapacitorBarcodeScannerTypeHint.ALL
+    });
+    if (result && result.ScanResult) {
+      this.result = result.ScanResult;
+      this.asistenciaService.agregarRegistro(this.result)
+
     }
   }
 
@@ -58,11 +45,14 @@ export class Tab2Page {
   }
 
   private async showAlert(message: string) {
+    // Crea una nueva alerta
     const alert = await this.alertController.create({
-      header: 'Error',
-      message: message,
-      buttons: ['OK'],
+      header: 'Error',           // Título de la alerta
+      message: message,          // Mensaje que se mostrará
+      buttons: ['OK'],           // Botones en la alerta (en este caso solo OK)
     });
+
+    // Muestra la alerta en pantalla
     await alert.present();
   }
 }
