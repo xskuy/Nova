@@ -2,11 +2,10 @@
 // http://ionicframework.com/docs/theming/
 
 :root {
-  // Dark theme colors
-  --ion-background-color: #030712;       // Negro principal
-  --ion-background-color-rgb: 3, 7, 18;
+  --ion-background-color: #000000; // o el color oscuro que uses
+  --ion-background-color-rgb: 0,0,0;
   
-  --ion-card-background: #111827;        // Fondo de tarjetas/contenedores
+  --ion-card-background: transparent;
   --ion-item-background: #1f2937;        // Fondo de inputs/items
   --ion-border-color: #374151;           // Color de bordes
   
@@ -91,4 +90,14 @@ ion-card {
   --background: var(--card-background);
   --color: var(--text-color);
   border: 1px solid var(--border-color);
+}
+
+// Para modo oscuro específicamente
+@media (prefers-color-scheme: dark) {
+  body {
+    --ion-background-color: #000000;
+    --ion-background-color-rgb: 0,0,0;
+    
+    --ion-card-background: transparent;
+  }
 }

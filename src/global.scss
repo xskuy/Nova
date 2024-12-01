@@ -37,3 +37,20 @@
 @import '@ionic/angular/css/palettes/dark.system.css';
 
 @import "./theme/variables.scss";
+
+ion-content {
+  --background: #000000;
+}
+
+ion-card {
+  --background: transparent;
+  box-shadow: none;
+}
+
+.ios ion-card {
+  background: transparent !important;
+}
+
+.md ion-card {
+  background: transparent !important;
+}

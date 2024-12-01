@@ -5,6 +5,26 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-button (click)="scanQRCode()">Escanear QR</ion-button>
-  <div *ngIf="result">Resultado: {{result}}</div>
+  <ion-button expand="block" (click)="scanQRCode()">
+    <ion-icon name="scan-outline" slot="start"></ion-icon>
+    Escanear QR
+  </ion-button>
+
+  <ion-card *ngIf="result">
+    <ion-card-header>
+      <ion-card-title>Resultado del escaneo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>
+            <h2>Asignatura: {{result.split('|')[0]}}</h2>
+            <h2>Sección: {{result.split('|')[1]}}</h2>
+            <h2>Sala: {{result.split('|')[2]}}</h2>
+            <h2>Fecha: {{result.split('|')[3]}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
