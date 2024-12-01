@@ -12,11 +12,7 @@ const config: CapacitorConfig = {
   ios: {
     contentInset: 'always',
     scrollEnabled: true,
-    limitsNavigationsToAppBoundDomains: false,
-    preferences: {
-      allowsBackgroundWebSocket: true,
-      allowsInlineMediaPlayback: true
-    }
+    limitsNavigationsToAppBoundDomains: false
   },
   plugins: {
     FirebaseAuthentication: {
