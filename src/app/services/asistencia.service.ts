@@ -5,8 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class AsistenciaService {
   private registros: string[] = [];
+  private codigosValidos: Set<string> = new Set([
+    'PGY4121|012D|L9|20241104',
+    'MDY3131|007D|L10|20241104',
+    'ASY4131|99A|L11|20241104'
+  ]);
 
   procesarQRCode(qr: string): { asignatura: string; seccion: string; sala: string; fecha: string } | null {
+    if (!this.codigosValidos.has(qr)) {
+      console.error('Código QR no válido:', qr);
+      return null;
+    }
     const partes = qr.split('|');
     if (partes.length === 4) {
       return {

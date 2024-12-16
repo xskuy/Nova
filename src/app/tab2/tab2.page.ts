@@ -34,11 +34,18 @@ export class Tab2Page {
     });
     this.result = result.ScanResult;
 
+    // Verifica si el formato del QR es válido antes de intentar agregarlo
+    if (!this.validateFormat(this.result)) {
+      await this.showAlert('El formato del código QR no es válido.');
+      return;
+    }
+
     // Intenta agregar el registro y verifica si fue exitoso
     const registroAgregado = this.asistenciaService.agregarRegistro(this.result);
     if (!registroAgregado) {
-      // Si el registro no fue agregado, muestra una alerta indicando que el usuario ya está presente
-      await this.showAlert('El usuario ya está presente.');
+      await this.showAlert('El código QR no es válido o ya ha sido registrado.');
+    } else {
+      await this.showAlert('Registro agregado correctamente.');
     }
   }
   
@@ -54,10 +61,10 @@ export class Tab2Page {
 
   private async showAlert(message: string) {
     const alert = await this.alertController.create({
-      header: 'Información',
+      header: 'Error',
       message: message,
       buttons: ['OK'],
-    });
-    await alert.present();
+    })
+    await alert.present()
   }
 }
