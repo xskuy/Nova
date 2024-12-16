@@ -1,33 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AsistenciaService } from '../services/asistencia.service';
 import { LoginService } from '../services/login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-asistencia',
-  standalone: true,  // Asegúrate de que esté configurado como standalone
+  standalone: true,
   imports: [
-    IonicModule,       // Importa IonicModule para habilitar los componentes ion-*
+    IonicModule,
     CommonModule 
   ],
   templateUrl: './asistencia.component.html',
   styleUrls: ['./asistencia.component.scss']
 })
-export class AsistenciaComponent implements OnInit {
+export class AsistenciaComponent implements OnInit, OnDestroy {
   registrosProcesados: { asignatura: string; seccion: string; sala: string; fecha: string }[] = [];
   username: string = ''; 
   currentDate: string = '';
+  private registrosSubscription: Subscription;
 
   constructor(
     private asistenciaService: AsistenciaService,
     private loginService: LoginService
-  ) {}
+  ) {
+    this.registrosSubscription = this.asistenciaService.registros$.subscribe(() => {
+      this.cargarRegistrosProcesados();
+    });
+  }
 
   ngOnInit() {
     this.initCurrentDate();
     this.setCurrentUser();
     this.cargarRegistrosProcesados();
+  }
+
+  ngOnDestroy() {
+    if (this.registrosSubscription) {
+      this.registrosSubscription.unsubscribe();
+    }
   }
 
   private initCurrentDate(): void {

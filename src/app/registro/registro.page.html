@@ -9,8 +9,6 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <div class="register-container">
-    <!-- Header -->
-
     <!-- Progress Bar -->
     <div class="progress-section">
       <div class="progress-info">
@@ -33,29 +31,20 @@
 
         <div class="form-group">
           <ion-label>Email</ion-label>
-          <div class="input-container">
-            <ion-icon name="mail-outline"></ion-icon>
-            <ion-input type="email" formControlName="email"></ion-input>
-          </div>
+          <ion-input type="email" formControlName="email"></ion-input>
         </div>
 
         <div class="form-group">
           <ion-label>Contraseña</ion-label>
-          <div class="input-container">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </div>
+          <ion-input type="password" formControlName="password"></ion-input>
         </div>
 
         <div class="form-group">
           <ion-label>Confirmar Contraseña</ion-label>
-          <div class="input-container">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <ion-input
-              type="password"
-              formControlName="confirmPassword"
-            ></ion-input>
-          </div>
+          <ion-input
+            type="password"
+            formControlName="confirmPassword"
+          ></ion-input>
         </div>
       </div>
 
@@ -67,34 +56,22 @@
 
         <div class="form-group">
           <ion-label>Nombre</ion-label>
-          <div class="input-container">
-            <ion-icon name="person-outline"></ion-icon>
-            <ion-input type="text" formControlName="name"></ion-input>
-          </div>
+          <ion-input type="text" formControlName="name"></ion-input>
         </div>
 
         <div class="form-group">
           <ion-label>Apellido</ion-label>
-          <div class="input-container">
-            <ion-icon name="person-outline"></ion-icon>
-            <ion-input type="text" formControlName="lastName"></ion-input>
-          </div>
+          <ion-input type="text" formControlName="lastName"></ion-input>
         </div>
 
         <div class="form-group">
           <ion-label>Edad</ion-label>
-          <div class="input-container">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <ion-input type="number" formControlName="age"></ion-input>
-          </div>
+          <ion-input type="number" formControlName="age"></ion-input>
         </div>
 
         <div class="form-group">
           <ion-label>Teléfono (opcional)</ion-label>
-          <div class="input-container">
-            <ion-icon name="call-outline"></ion-icon>
-            <ion-input type="tel" formControlName="phone"></ion-input>
-          </div>
+          <ion-input type="tel" formControlName="phone"></ion-input>
         </div>
       </div>
 
@@ -105,59 +82,39 @@
         </div>
 
         <div class="form-group">
-          <ion-label>Matrícula</ion-label>
-          <div class="input-container">
-            <ion-icon name="school-outline"></ion-icon>
-            <ion-input [value]="generatedStudentId" readonly></ion-input>
-          </div>
-          <ion-note>Esta matrícula se generó automáticamente</ion-note>
-        </div>
-
-        <div class="form-group">
           <ion-label>Carrera</ion-label>
-          <div class="input-container">
-            <ion-icon name="school-outline"></ion-icon>
-            <ion-select formControlName="career" interface="action-sheet">
-              <ion-select-option
-                *ngFor="let career of careersList"
-                [value]="career"
-              >
-                {{career}}
-              </ion-select-option>
-            </ion-select>
-          </div>
+          <ion-select formControlName="career" interface="action-sheet">
+            <ion-select-option
+              *ngFor="let career of careersList"
+              [value]="career"
+            >
+              {{career}}
+            </ion-select-option>
+          </ion-select>
         </div>
 
-        <!-- Agregar campo Semestre -->
         <div class="form-group">
           <ion-label>Semestre</ion-label>
-          <div class="input-container">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <ion-select formControlName="semester" interface="action-sheet">
-              <ion-select-option
-                *ngFor="let semester of semestersList"
-                [value]="semester"
-              >
-                {{semester}}
-              </ion-select-option>
-            </ion-select>
-          </div>
+          <ion-select formControlName="semester" interface="action-sheet">
+            <ion-select-option
+              *ngFor="let semester of semestersList"
+              [value]="semester"
+            >
+              {{semester}}
+            </ion-select-option>
+          </ion-select>
         </div>
 
-        <!-- Agregar campo Campus -->
         <div class="form-group">
           <ion-label>Campus</ion-label>
-          <div class="input-container">
-            <ion-icon name="location-outline"></ion-icon>
-            <ion-select formControlName="campus" interface="action-sheet">
-              <ion-select-option
-                *ngFor="let campus of campusList"
-                [value]="campus"
-              >
-                {{campus}}
-              </ion-select-option>
-            </ion-select>
-          </div>
+          <ion-select formControlName="campus" interface="action-sheet">
+            <ion-select-option
+              *ngFor="let campus of campusList"
+              [value]="campus"
+            >
+              {{campus}}
+            </ion-select-option>
+          </ion-select>
         </div>
       </div>
 

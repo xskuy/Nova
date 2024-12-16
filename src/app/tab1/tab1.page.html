@@ -1,3 +1,4 @@
+<!-- tab1.page.html -->
 <ion-header>
   <ion-toolbar>
     <div class="header-grid">
@@ -20,64 +21,50 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12" size-md="6">
-          <ion-card class="home-card">
-            <img alt="horario" src="assets/img/horario4.png" />
+          <ion-card class="home-card" button="true" routerLink="/horario">
+            <div class="card-illustration">
+              <img src="assets/img/horario4.png" alt="Horario" />
+            </div>
             <ion-card-header>
-              <ion-icon name="calendar" class="card-icon"></ion-icon>
               <ion-card-title>Horario</ion-card-title>
+              <ion-card-subtitle>Gestiona tu tiempo</ion-card-subtitle>
             </ion-card-header>
-            <ion-card-content>
-              <ion-button expand="block" fill="clear" routerLink="/notfound">
-                 Horario
-              </ion-button>
-            </ion-card-content>
           </ion-card>
         </ion-col>
 
         <ion-col size="12" size-md="6">
-          <ion-card class="home-card">
-            <img alt="asistencia" src="assets/img/Asistencia.jpg" />
+          <ion-card class="home-card" button="true" routerLink="/asistencia">
+            <div class="card-illustration">
+              <img src="assets/img/Asistencia.jpg" alt="Asistencia" />
+            </div>
             <ion-card-header>
-              <ion-icon name="people" class="card-icon"></ion-icon>
               <ion-card-title>Asistencia</ion-card-title>
+              <ion-card-subtitle>Control de presencia</ion-card-subtitle>
             </ion-card-header>
-            <ion-card-content>
-              <ion-button expand="block" fill="clear" routerLink="/asistencia">
-                Asistencia
-              </ion-button>
-            </ion-card-content>
           </ion-card>
         </ion-col>
-      </ion-row>
 
-      <ion-row>
         <ion-col size="12" size-md="6">
-          <ion-card class="home-card">
-            <img alt="Notas" src="assets/img/notas.jpg" />
+          <ion-card class="home-card" button="true" routerLink="/notas">
+            <div class="card-illustration">
+              <img src="assets/img/notas.jpg" alt="Notas" />
+            </div>
             <ion-card-header>
-              <ion-icon name="document-text" class="card-icon"></ion-icon>
               <ion-card-title>Notas</ion-card-title>
+              <ion-card-subtitle>Revisa tus calificaciones</ion-card-subtitle>
             </ion-card-header>
-            <ion-card-content>
-              <ion-button expand="block" fill="clear" routerLink="/notas">
-                 Notas
-              </ion-button>
-            </ion-card-content>
           </ion-card>
         </ion-col>
 
         <ion-col size="12" size-md="6">
-          <ion-card class="home-card">
-            <img alt="curso" src="assets/img/cursos.jpg" />
+          <ion-card class="home-card" button="true" routerLink="/cursos">
+            <div class="card-illustration">
+              <img src="assets/img/cursos.jpg" alt="Cursos" />
+            </div>
             <ion-card-header>
-              <ion-icon name="book" class="card-icon"></ion-icon>
               <ion-card-title>Cursos</ion-card-title>
+              <ion-card-subtitle>Gestiona tus asignaturas</ion-card-subtitle>
             </ion-card-header>
-            <ion-card-content>
-              <ion-button expand="block" fill="clear" routerLink="/cursos">
-                 Cursos
-              </ion-button>
-            </ion-card-content>
           </ion-card>
         </ion-col>
       </ion-row>

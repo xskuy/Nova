@@ -48,6 +48,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard]  
   },
   {
+    path: 'horario',
+    loadComponent: () => import('./horario/horario.page').then( m => m.HorarioPage)
+  },
+  {
     path: '**',
     redirectTo: 'notfound' 
   }

@@ -2,15 +2,112 @@
   margin-left: 25%;
 }
 .small-card {
-    width: 80%;         /* Ajusta el ancho al 80% del contenedor */
-    max-width: 300px;   /* Limita el ancho máximo */
-    font-size: 0.9em;   /* Ajusta el tamaño de fuente para el contenido */
-    margin: auto;       /* Centra la tarjeta */
-    margin-top: 20px;
-    place-content: center;
+  width: 90%;
+  max-width: 600px;
+  margin: 20px auto;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
-  .small-card img {
-    height: 150px;      /* Cambia la altura de la imagen si es necesario */
-    object-fit: cover;  /* Ajusta el recorte de la imagen */
-    max-width: 100%;
+
+  .card-image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .course-code {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: var(--ion-color-primary);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
   }
+
+  ion-card-header {
+    padding: 16px;
+    background: var(--ion-color-light);
+
+    ion-card-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+      margin-bottom: 8px;
+    }
+
+    ion-card-subtitle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ion-color-medium);
+      font-size: 0.9rem;
+
+      ion-icon {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  ion-card-content {
+    padding: 16px;
+
+    .course-description {
+      color: var(--ion-color-medium);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .course-stats {
+      border-top: 1px solid var(--ion-color-light);
+      padding-top: 16px;
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--ion-color-primary);
+        font-size: 0.9rem;
+
+        ion-icon {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .small-card {
+    width: 95%;
+    margin: 16px auto;
+
+    .card-image-container {
+      height: 180px;
+    }
+
+    ion-card-header {
+      ion-card-title {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}

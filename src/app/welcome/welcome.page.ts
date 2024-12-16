@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { schoolOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-welcome',
@@ -11,7 +13,11 @@ import { IonicModule } from '@ionic/angular';
   imports: [CommonModule, IonicModule]
 })
 export class WelcomePage {
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    addIcons({
+      schoolOutline
+    });
+  }
 
   navigateToLogin() {
     this.router.navigate(['/login']);

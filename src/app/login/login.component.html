@@ -2,10 +2,7 @@
   <div class="header-gradient"></div>
   <div class="login-container">
     <div class="login-box">
-      <a routerLink="/welcome" class="back-link">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-        Volver
-      </a>
+      <a routerLink="/welcome" class="back-link"> Volver </a>
 
       <h1>Bienvenido</h1>
 
@@ -13,7 +10,6 @@
         <div class="form-group">
           <ion-label>Email</ion-label>
           <div class="input-container">
-            <i class="ion-icon ion-mail-outline"></i>
             <ion-input
               type="email"
               placeholder="correo@ejemplo.com"
@@ -26,20 +22,12 @@
         <div class="form-group">
           <ion-label>Contraseña</ion-label>
           <div class="input-container">
-            <i class="ion-icon ion-lock-closed-outline"></i>
             <ion-input
               [type]="showPassword ? 'text' : 'password'"
               placeholder="********"
               formControlName="password"
               class="custom-input"
             ></ion-input>
-            <i
-              class="ion-icon"
-              [class.ion-eye-outline]="showPassword"
-              [class.ion-eye-off-outline]="!showPassword"
-              (click)="showPassword = !showPassword"
-              class="eye-icon"
-            ></i>
           </div>
         </div>
 

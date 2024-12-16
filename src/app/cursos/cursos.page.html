@@ -7,43 +7,87 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card class ="small-card">
-    <img alt="Silhouette of mountains" src="assets/img/movil.png" />
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card class="small-card">
+    <div class="card-image-container">
+      <img alt="Desarrollo móvil" src="assets/img/movil.png" />
+      <div class="course-code">012_D</div>
+    </div>
     <ion-card-header>
-      <ion-card-title>Desarrollo de Aplicaciones Moviles 012_D</ion-card-title>
-      <ion-card-subtitle>Carlos Martinez </ion-card-subtitle>
-
+      <ion-card-title>Desarrollo de Aplicaciones Móviles</ion-card-title>
+      <ion-card-subtitle>
+        <ion-icon name="person-outline"></ion-icon>
+        Carlos Martinez
+      </ion-card-subtitle>
     </ion-card-header>
-  
-    <ion-card-content>
-      En este curso aprenderás a trabajar en el desarrollo de aplicaciones moviles con un enfoque de desarrollo mixto. 
-      <ion-card-subtitle>Alumnos presentes: </ion-card-subtitle>
 
+    <ion-card-content>
+      <p class="course-description">
+        En este curso aprenderás a trabajar en el desarrollo de aplicaciones
+        móviles con un enfoque de desarrollo mixto.
+      </p>
+      <div class="course-stats">
+        <div class="stat-item">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>Alumnos presentes: 32</span>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 
-  <ion-card class ="small-card">
-    <img alt="Silhouette of mountains" src="assets/img/curso-sql-bases-de-datos.jpg" />
+  <ion-card class="small-card">
+    <div class="card-image-container">
+      <img alt="Base de datos" src="assets/img/curso-sql-bases-de-datos.jpg" />
+      <div class="course-code">007_BD</div>
+    </div>
     <ion-card-header>
-      <ion-card-title>Programación de Base de Datos 007_BD</ion-card-title>
-      <ion-card-subtitle>Benjamin Mora</ion-card-subtitle>
+      <ion-card-title>Programación de Base de Datos</ion-card-title>
+      <ion-card-subtitle>
+        <ion-icon name="person-outline"></ion-icon>
+        Benjamin Mora
+      </ion-card-subtitle>
     </ion-card-header>
-  
+
     <ion-card-content>
-      La programación de base de datos es el proceso de crear, actualizar, eliminar, insertar, consultar y manipular datos en una base de datos. Para ello, se utilizan lenguajes de base de datos, como SQL  
+      <p class="course-description">
+        La programación de base de datos es el proceso de crear, actualizar,
+        eliminar, insertar, consultar y manipular datos en una base de datos.
+        Para ello, se utilizan lenguajes de base de datos, como SQL.
+      </p>
+      <div class="course-stats">
+        <div class="stat-item">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>Alumnos presentes: 28</span>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 
-  <ion-card class ="small-card">
-    <img alt="Silhouette of mountains" src="assets/img/arquitectura.jpg" />
+  <ion-card class="small-card">
+    <div class="card-image-container">
+      <img alt="Arquitectura" src="assets/img/arquitectura.jpg" />
+      <div class="course-code">015_AS</div>
+    </div>
     <ion-card-header>
       <ion-card-title>Arquitectura de Software</ion-card-title>
-      <ion-card-subtitle>Emilio Soto</ion-card-subtitle>
+      <ion-card-subtitle>
+        <ion-icon name="person-outline"></ion-icon>
+        Emilio Soto
+      </ion-card-subtitle>
     </ion-card-header>
-  
+
     <ion-card-content>
-      En este curso aprenderás la a forma en que se organizan los elementos de un sistema de software, y las decisiones de diseño que se toman para definir su estructura y comportamiento. 
+      <p class="course-description">
+        En este curso aprenderás la forma en que se organizan los elementos de
+        un sistema de software, y las decisiones de diseño que se toman para
+        definir su estructura y comportamiento.
+      </p>
+      <div class="course-stats">
+        <div class="stat-item">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>Alumnos presentes: 25</span>
+        </div>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

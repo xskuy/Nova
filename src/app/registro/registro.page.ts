@@ -8,6 +8,15 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { LoginService } from '../services/login.service';
 import { ProfileService } from '../services/profile.service';
 import { LoadingController } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { 
+  mailOutline, 
+  lockClosedOutline,
+  personOutline,
+  callOutline,
+  schoolOutline,
+  locationOutline
+} from 'ionicons/icons';
 import {
   IonHeader,
   IonToolbar,
@@ -73,7 +82,8 @@ export class RegistroPage implements OnInit {
     private alertController: AlertController,
     private loadingController: LoadingController,
     private router: Router
-  ) {}
+  ) {
+  }
 
   async ngOnInit() {
     try {
@@ -180,7 +190,7 @@ export class RegistroPage implements OnInit {
         
         switch (error.code) {
           case 'auth/email-already-in-use':
-            errorMessage = 'Este correo electrónico ya está registrado.';
+            errorMessage = 'Este correo electrónico ya est�� registrado.';
             break;
           case 'auth/invalid-email':
             errorMessage = 'El formato del correo electrónico no es válido.';

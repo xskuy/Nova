@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+    </ion-buttons>
+    <ion-title>📅 Horario</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="selectedDay" (ionChange)="segmentChanged($event)">
+      <ion-segment-button
+        *ngFor="let day of days; let i = index"
+        [value]="i.toString()"
+      >
+        <ion-label>{{ day }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="schedule-container">
+    <ng-container
+      *ngIf="schedule[selectedDay] && schedule[selectedDay].length > 0; else noClasses"
+    >
+      <ion-card
+        *ngFor="let class of schedule[selectedDay]"
+        [color]="class.color"
+        class="class-card"
+      >
+        <ion-card-content>
+          <!-- Hora -->
+          <div class="time-slot">
+            <ion-icon name="time-outline"></ion-icon>
+            {{ class.time }}
+          </div>
+
+          <!-- Nombre de la clase -->
+          <div class="subject-name">{{ class.emoji }} {{ class.subject }}</div>
+
+          <!-- Detalles -->
+          <div class="details">
+            <div class="detail-item">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ class.room }}
+            </div>
+            <div class="detail-item">
+              <ion-icon name="person-outline"></ion-icon>
+              {{ class.professor }}
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </ng-container>
+
+    <ng-template #noClasses>
+      <div class="no-classes">
+        <p>✨ No hay clases programadas para este día</p>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

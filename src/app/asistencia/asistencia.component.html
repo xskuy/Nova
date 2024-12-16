@@ -1,40 +1,58 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
     </ion-buttons>
-    <img alt="logo" class="duoc" height="40" src="assets/img/duoc.png" />
+    <div class="logo-container">
+      <img alt="logo" class="duoc" src="assets/img/duoc.png" />
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngIf="registrosProcesados.length > 0; else noRegistro">
-    <ion-card-header>
-      <ion-card-title>Lista de Asistencias</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <!-- Itera sobre los registros procesados -->
-        <ion-item *ngFor="let registro of registrosProcesados">
-          <ion-label>
-            Asistencia Marcada a las {{ currentDate }} <br />
-            Asignatura: {{ registro.asignatura }} <br />
-            Sección: {{ registro.seccion }} <br />
-            Sala: {{ registro.sala }} <br />
-            Fecha: {{ registro.fecha }}
-          </ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+<ion-content class="ion-padding">
+  <div
+    class="content-container"
+    *ngIf="registrosProcesados.length > 0; else noRegistro"
+  >
+    <div class="header-section">
+      <h1>Asistencias</h1>
+      <p>Registros del día de hoy</p>
+    </div>
+
+    <div class="records-container">
+      <div class="record-card" *ngFor="let registro of registrosProcesados">
+        <div class="record-header">
+          <div class="record-title">
+            <h3>{{ registro.asignatura }}</h3>
+            <p>Sección {{ registro.seccion }}</p>
+          </div>
+          <span class="record-time">{{ currentDate }}</span>
+        </div>
+
+        <div class="record-details">
+          <div class="detail-item">
+            <span class="label">Sala</span>
+            <p class="value">{{ registro.sala }}</p>
+          </div>
+          <div class="detail-item">
+            <span class="label">Fecha</span>
+            <p class="value">{{ registro.fecha }}</p>
+          </div>
+        </div>
+
+        <div class="success-indicator">
+          <span class="indicator-dot"></span>
+          Asistencia registrada
+        </div>
+      </div>
+    </div>
+  </div>
 
   <ng-template #noRegistro>
-    <ion-card>
-      <ion-card-content>
-        <ion-text color="medium">
-          <h2>No hay registros de asistencia.</h2>
-        </ion-text>
-      </ion-card-content>
-    </ion-card>
+    <div class="empty-state">
+      <div class="empty-icon">📋</div>
+      <h2>No hay registros</h2>
+      <p>Aún no tienes asistencias registradas</p>
+    </div>
   </ng-template>
 </ion-content>

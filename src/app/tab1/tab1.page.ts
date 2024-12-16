@@ -16,6 +16,7 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
+  IonCardSubtitle,
   IonCardContent,
   IonButton,
   IonIcon
@@ -41,6 +42,7 @@ import {
     IonCard,
     IonCardHeader,
     IonCardTitle,
+    IonCardSubtitle,
     IonCardContent,
     IonButton,
     IonIcon

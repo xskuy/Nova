@@ -1,8 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular'; 
-import { IonContent, IonHeader, IonTitle, IonToolbar,IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonBackButton} from '@ionic/angular/standalone';
+import { 
+  IonContent, 
+  IonHeader, 
+  IonTitle, 
+  IonToolbar, 
+  IonButton, 
+  IonCard, 
+  IonCardHeader, 
+  IonCardTitle, 
+  IonCardSubtitle, 
+  IonCardContent, 
+  IonBackButton,
+  IonButtons,
+  IonIcon
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { 
+  personOutline, 
+  peopleOutline 
+} from 'ionicons/icons';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -10,12 +28,33 @@ import { LoginService } from '../services/login.service';
   templateUrl: './cursos.page.html',
   styleUrls: ['./cursos.page.scss'],
   standalone: true,
-  imports: [IonicModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonBackButton, ]
+  imports: [
+    CommonModule, 
+    FormsModule, 
+    IonContent, 
+    IonHeader, 
+    IonTitle, 
+    IonToolbar, 
+    IonButton, 
+    IonCard, 
+    IonCardHeader, 
+    IonCardTitle, 
+    IonCardSubtitle, 
+    IonCardContent, 
+    IonBackButton,
+    IonButtons,
+    IonIcon
+  ]
 })
 export class CursosPage implements OnInit {
   username: string | null = '';
 
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService) {
+    addIcons({
+      'person-outline': personOutline,
+      'people-outline': peopleOutline
+    });
+  }
 
   ngOnInit() {
     const loggedUser = this.loginService.getCurrentUserValue();
@@ -25,5 +64,4 @@ export class CursosPage implements OnInit {
   getUserFirstName(): string {
     return this.username ? this.username.split('@')[0] : '';
   }
-
 }

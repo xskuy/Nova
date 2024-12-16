@@ -11,18 +11,14 @@
   <!-- Tarjeta 1 -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>
-        Desarrollo de Aplicaciones Móviles
-      </ion-card-title>
-      <ion-card-subtitle>
-        PGY4121-012D
-      </ion-card-subtitle>
+      <ion-card-title> Desarrollo de Aplicaciones Móviles </ion-card-title>
+      <ion-card-subtitle> PGY4121-012D </ion-card-subtitle>
       <ion-button fill="solid" (click)="toggleCard('card1')">
-           Abrir
+        Abrir
         <ion-icon slot="end" name="arrow-round down"></ion-icon>
       </ion-button>
     </ion-card-header>
-  
+
     <ion-card-content *ngIf="cardStates['card1']">
       <ion-list>
         <ion-item>
@@ -50,18 +46,14 @@
   <!-- Tarjeta 2 -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>
-        Programación de Base de Datos
-      </ion-card-title>
-      <ion-card-subtitle>
-        MDY3131-007D
-      </ion-card-subtitle>
+      <ion-card-title> Programación de Base de Datos </ion-card-title>
+      <ion-card-subtitle> MDY3131-007D </ion-card-subtitle>
       <ion-button fill="solid" (click)="toggleCard('card2')">
         Abrir
         <ion-icon slot="end" name="arrow-round down"></ion-icon>
       </ion-button>
     </ion-card-header>
-  
+
     <ion-card-content *ngIf="cardStates['card2']">
       <ion-list>
         <ion-item>
@@ -89,18 +81,14 @@
   <!-- Tarjeta 3 -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title>
-        Arquitectura de Software
-      </ion-card-title>
-      <ion-card-subtitle>
-        ASY4131-99A
-      </ion-card-subtitle>
+      <ion-card-title> Arquitectura de Software </ion-card-title>
+      <ion-card-subtitle> ASY4131-99A </ion-card-subtitle>
       <ion-button fill="solid" (click)="toggleCard('card3')">
         Abrir
         <ion-icon slot="end" name="arrow-round down"></ion-icon>
       </ion-button>
     </ion-card-header>
-  
+
     <ion-card-content *ngIf="cardStates['card3']">
       <ion-list>
         <ion-item>
@@ -124,5 +112,4 @@
       </ion-list>
     </ion-card-content>
   </ion-card>
-    
 </ion-content>
