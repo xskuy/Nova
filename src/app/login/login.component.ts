@@ -1,5 +1,7 @@
 // biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from "@angular/core";
+import { Platform } from "@ionic/angular";
+import { Keyboard } from '@capacitor/keyboard';
 // biome-ignore lint/style/useImportType: <explanation>
 import {
 	ReactiveFormsModule,
@@ -78,7 +80,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertController: AlertController,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private platform: Platform
   ) {
     addIcons({ 
       mailOutline, 
@@ -89,11 +92,34 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    if (this.platform.is('ios')) {
+      await Keyboard.setAccessoryBarVisible({ isVisible: false });
+      await Keyboard.setScroll({ isDisabled: true });
+    }
+  }
+
+  ionViewWillEnter() {
+    if (this.platform.is('ios')) {
+      Keyboard.addListener('keyboardWillShow', () => {
+        document.body.classList.add('keyboard-is-shown');
+      });
+
+      Keyboard.addListener('keyboardWillHide', () => {
+        document.body.classList.remove('keyboard-is-shown');
+      });
+    }
+  }
+
+  ionViewWillLeave() {
+    if (this.platform.is('ios')) {
+      Keyboard.removeAllListeners();
+    }
   }
 
   async login() {

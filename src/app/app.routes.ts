@@ -48,6 +48,10 @@ export const routes: Routes = [
     canActivate: [AuthGuard]  
   },
   {
+    path: 'schedule',
+    loadComponent: () => import('./pages/schedule/schedule.page').then(m => m.SchedulePage)
+  },
+  {
     path: '**',
     redirectTo: 'notfound' 
   }

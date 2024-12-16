@@ -1,0 +1,29 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header-toolbar">
+    <ion-buttons slot="start">
+      <ion-back-button
+        defaultHref="/tabs/tab1"
+        icon="chevron-back"
+      ></ion-back-button>
+    </ion-buttons>
+    <ion-title>Horario</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="class-container">
+    <ion-card *ngFor="let class of schedule" class="class-card">
+      <ion-card-content>
+        <div class="class-content">
+          <div class="class-info">
+            <h3>{{ class.className }}</h3>
+            <p class="professor">Profesor: {{ class.professor }}</p>
+            <p class="room">Sala: {{ class.room }}</p>
+            <p class="time">{{ class.startTime }} - {{ class.endTime }}</p>
+          </div>
+          <div class="class-code">{{ class.code }}</div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,43 +1,83 @@
-require_relative '../../node_modules/.pnpm/@capacitor+ios@6.2.0_@capacitor+core@6.2.0/node_modules/@capacitor/ios/scripts/pods_helpers'
+require_relative '../../node_modules/@capacitor/ios/scripts/pods_helpers'
 
-platform :ios, '13.0'
+platform :ios, '16.0'
 use_frameworks!
 
-# workaround to avoid Xcode caching of Pods that requires
-# Product -> Clean Build Folder after new Cordova plugins installed
-# Requires CocoaPods 1.6 or newer
-install! 'cocoapods', :disable_input_output_paths => true
+# Configuración para evitar warnings
+install! 'cocoapods',
+  :disable_input_output_paths => true,
+  :deterministic_uuids => false
 
 def capacitor_pods
-  pod 'Capacitor', :path => '../../node_modules/.pnpm/@capacitor+ios@6.2.0_@capacitor+core@6.2.0/node_modules/@capacitor/ios'
-  pod 'CapacitorCordova', :path => '../../node_modules/.pnpm/@capacitor+ios@6.2.0_@capacitor+core@6.2.0/node_modules/@capacitor/ios'
-  pod 'CapacitorMlkitBarcodeScanning', :path => '../../node_modules/.pnpm/@capacitor-mlkit+barcode-scanning@6.2.0_@capacitor+core@6.2.0/node_modules/@capacitor-mlkit/barcode-scanning'
-  pod 'CapacitorApp', :path => '../../node_modules/.pnpm/@capacitor+app@6.0.1_@capacitor+core@6.2.0/node_modules/@capacitor/app'
-  pod 'CapacitorCamera', :path => '../../node_modules/.pnpm/@capacitor+camera@6.1.1_@capacitor+core@6.2.0/node_modules/@capacitor/camera'
-  pod 'CapacitorHaptics', :path => '../../node_modules/.pnpm/@capacitor+haptics@6.0.1_@capacitor+core@6.2.0/node_modules/@capacitor/haptics'
-  pod 'CapacitorKeyboard', :path => '../../node_modules/.pnpm/@capacitor+keyboard@6.0.2_@capacitor+core@6.2.0/node_modules/@capacitor/keyboard'
-  pod 'CapacitorStatusBar', :path => '../../node_modules/.pnpm/@capacitor+status-bar@6.0.1_@capacitor+core@6.2.0/node_modules/@capacitor/status-bar'
+  pod 'Capacitor', :path => '../../node_modules/@capacitor/ios'
+  pod 'CapacitorCordova', :path => '../../node_modules/@capacitor/ios'
+  pod 'CapacitorMlkitBarcodeScanning', :path => '../../node_modules/@capacitor-mlkit/barcode-scanning'
+  pod 'CapacitorApp', :path => '../../node_modules/@capacitor/app'
+  pod 'CapacitorCamera', :path => '../../node_modules/@capacitor/camera'
+  pod 'CapacitorHaptics', :path => '../../node_modules/@capacitor/haptics'
+  pod 'CapacitorKeyboard', :path => '../../node_modules/@capacitor/keyboard'
+  pod 'CapacitorStatusBar', :path => '../../node_modules/@capacitor/status-bar'
 end
 
 target 'App' do
   capacitor_pods
-  # Add your Pods here
+  
+  # Firebase dependencies con inhibit_warnings
+  pod 'Firebase/Core', :inhibit_warnings => true
+  pod 'Firebase/Firestore', :inhibit_warnings => true
+  
+  # Configuración para evitar warnings
+  pod 'GoogleToolboxForMac', :modular_headers => true, :inhibit_warnings => true
+  pod 'FirebaseCore', :modular_headers => true, :inhibit_warnings => true
+  pod 'GoogleUtilities', :modular_headers => true, :inhibit_warnings => true
+  pod 'FirebaseFirestore', :modular_headers => true, :inhibit_warnings => true
+
+  # Actualiza gRPC y BoringSSL-GRPC a versiones compatibles
+  pod 'gRPC-Core', '~> 1.57.0'
+  pod 'BoringSSL-GRPC', '~> 0.10.0'
 end
 
+# Unificar post_install
 post_install do |installer|
   installer.pods_project.targets.each do |target|
+    target.build_phases.each do |phase|
+      # Eliminar el script "Create Symlinks to Header Folders"
+      if phase.respond_to?(:name) && phase.name == 'Create Symlinks to Header Folders'
+        phase.remove_from_project
+      end
+
+      # Siempre marcar '[CP] Embed Pods Frameworks' como "out of date"
+      if phase.respond_to?(:name) && phase.name == '[CP] Embed Pods Frameworks'
+        phase.always_out_of_date = true
+      end
+    end
+
     target.build_configurations.each do |config|
-      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      # Configuraciones comunes de build
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+      config.build_settings['SYMROOT'] = '${PODS_ROOT}/../build'
+      config.build_settings['ALWAYS_SEARCH_USER_PATHS'] = 'YES'
       
-      # Add these lines
-      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
-      config.build_settings['VALID_ARCHS'] = 'arm64 x86_64'
-      config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
-      # Add this for privacy permissions
-      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-        '$(inherited)',
-        'PERMISSION_CAMERA=1'
-      ]
+      # Suppress warnings
+      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+      config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
+      config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'NO'
+
+      # Configuración específica de arquitecturas para iOS 16+
+      config.build_settings['ONLY_ACTIVE_ARCH'] = 'YES'
+
+      # Eliminar flags conflictivos como '-G'
+      config.build_settings['OTHER_CFLAGS'] = (config.build_settings['OTHER_CFLAGS'] || '').gsub('-G', '')
+      config.build_settings['OTHER_CPLUSPLUSFLAGS'] = (config.build_settings['OTHER_CPLUSPLUSFLAGS'] || '').gsub('-G', '')
+
+      # Fix para XCode 15
+      if config.base_configuration_reference && config.base_configuration_reference.real_path
+        xcconfig_path = config.base_configuration_reference.real_path
+        xcconfig = File.read(xcconfig_path)
+        xcconfig_mod = xcconfig.gsub(/DT_TOOLCHAIN_DIR/, "TOOLCHAIN_DIR")
+        File.open(xcconfig_path, "w") { |file| file << xcconfig_mod }
+      end
     end
   end
 end

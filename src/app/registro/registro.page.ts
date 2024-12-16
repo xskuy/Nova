@@ -27,6 +27,17 @@ import {
   IonIcon,
   IonNote
 } from '@ionic/angular/standalone';
+import {
+  mailOutline,
+  lockClosedOutline,
+  personOutline,
+  calendarOutline,
+  callOutline,
+  schoolOutline,
+  locationOutline
+} from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { FirestoreService } from '../services/firestore.service';
 
 @Component({
   selector: 'app-registro',
@@ -72,16 +83,18 @@ export class RegistroPage implements OnInit {
     private profileService: ProfileService,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private router: Router
-  ) {}
-
-  async ngOnInit() {
-    try {
-      this.generatedStudentId = await this.profileService.generateStudentId();
-    } catch (error) {
-      console.error('Error generating student ID:', error);
-      this.generatedStudentId = 'Error-0000';
-    }
+    private router: Router,
+    private firestoreService: FirestoreService
+  ) {
+    addIcons({
+      'mail-outline': mailOutline,
+      'lock-closed-outline': lockClosedOutline,
+      'person-outline': personOutline,
+      'calendar-outline': calendarOutline,
+      'call-outline': callOutline,
+      'school-outline': schoolOutline,
+      'location-outline': locationOutline
+    });
 
     this.registerForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]],
@@ -95,8 +108,15 @@ export class RegistroPage implements OnInit {
       semester: [null, Validators.required],
       campus: [null, Validators.required]
     }, { validator: this.checkPasswords });
+  }
 
-
+  async ngOnInit() {
+    try {
+      this.generatedStudentId = await this.profileService.generateStudentId();
+    } catch (error) {
+      console.error('Error generating student ID:', error);
+      this.generatedStudentId = 'Error-0000';
+    }
   }
 
   checkPasswords(group: FormGroup) {

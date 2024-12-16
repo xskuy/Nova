@@ -1,0 +1,78 @@
+// Estilos del header
+.header-toolbar {
+  --background: #111827;
+  --color: white;
+  --border-style: none;
+
+  ion-back-button {
+    --color: #8b5cf6;
+  }
+
+  ion-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+}
+
+// Contenido principal
+ion-content {
+  --background: #000000;
+}
+
+.class-container {
+  padding: 1rem;
+}
+
+.class-card {
+  background: rgba(17, 24, 39, 0.5);
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  ion-card-content {
+    padding: 1rem;
+  }
+}
+
+.class-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.class-info {
+  h3 {
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  p {
+    color: #9ca3af;
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+  }
+
+  .time {
+    margin-top: 0.5rem;
+  }
+}
+
+.class-code {
+  background: #8b5cf6;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+// Ajustes para iOS
+.ios {
+  ion-toolbar {
+    padding-top: 0;
+  }
+} 

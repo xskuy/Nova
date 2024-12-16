@@ -54,8 +54,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<true/>
     <key>NSCameraUsageDescription</key>
         <string>Se necesita acceso a la cámara para tomar fotos</string>
         <key>NSPhotoLibraryUsageDescription</key>
@@ -64,5 +62,19 @@
         <string>Se necesita acceso para guardar fotos en la galería</string>
         <key>NSMicrophoneUsageDescription</key>
         <string>Se necesita acceso al micrófono para grabar videos</string>
+        
+        
+    <key>UIStatusBarHidden</key>
+    <true/>
+    <key>UIViewControllerBasedStatusBarAppearance</key>
+    <true/>
+    <key>UIRequiresFullScreen</key>
+    <true/>
+    <key>UITextInputMode</key>
+    <dict>
+        <key>suppressionEnabled</key>
+        <true/>
+    </dict>
 </dict>
 </plist>
+
